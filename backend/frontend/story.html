@@ -446,14 +446,16 @@
       const video = document.getElementById('mustache-video')
       const playOverlay = document.getElementById('video-play-overlay')
       const playButton = document.getElementById('video-play-btn')
-      if (playOverlay) {
+      // Observe the wrapper (not the overlay): hiding the overlay on play would otherwise
+      // drop intersection and remove story-video-in-view → background flashes white.
+      if (storyVideoWrapper) {
         const videoBgObserver = new IntersectionObserver(
           ([entry]) => {
             document.body.classList.toggle('story-video-in-view', entry.isIntersecting)
           },
           { threshold: 0.2, rootMargin: '-8% 0px -10% 0px' }
         )
-        videoBgObserver.observe(playOverlay)
+        videoBgObserver.observe(storyVideoWrapper)
       }
       if (video && playOverlay && playButton) {
         playButton.addEventListener('click', () => { video.play(); playOverlay.style.display = 'none' })
