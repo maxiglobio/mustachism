@@ -55,6 +55,8 @@ Add these in Vercel Project Settings → Environment Variables:
 | `NEXT_PUBLIC_BASE_URL` | Your Vercel URL, e.g. `https://your-app.vercel.app` | For Stripe callbacks |
 | `STRIPE_SECRET_KEY` | Stripe secret key (or leave empty for demo mode) | Optional |
 | `WAITLIST_ONLY` | Set to `true` for public waitlist mode: homepage shows early-access email signup (see `/api/waitlist`), and `/order.html`, `/license-select.html`, `/personal-info.html` redirect to `/`. Omit or set `false` for the full checkout flow. | Optional |
+| `RESEND_API_KEY` | [Resend](https://resend.com) API key — sends the waitlist confirmation email to **new** signups only. If omitted, the API logs a mock email to the server console. | Optional |
+| `WAITLIST_EMAIL_FROM` | Sender address, e.g. `MUSTACHISM <waitlist@mustachism.com>`. Must use a domain you [verify in Resend](https://resend.com/docs/dashboard/domains/introduction). If omitted with `RESEND_API_KEY` set, defaults to `MUSTACHISM <onboarding@resend.dev>` (testing only; often limited to your own inbox). | Optional |
 
 **Supabase connection strings:**
 - `DATABASE_URL`: Use the "Connection pooling" URI (port 6543)

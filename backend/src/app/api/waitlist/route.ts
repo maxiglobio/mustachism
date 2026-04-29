@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import type { Prisma } from '@prisma/client'
 import { prisma } from '@/lib/db'
+import { sendWaitlistConfirmationEmail } from '@/lib/email'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -48,6 +49,7 @@ export async function POST(request: NextRequest) {
       metadata = body.metadata as Prisma.InputJsonValue
     }
 
+    let isNewSignup = false
     try {
       await prisma.waitlistSignup.create({
         data: {
@@ -55,12 +57,21 @@ export async function POST(request: NextRequest) {
           ...(metadata !== undefined ? { metadata } : {}),
         },
       })
+      isNewSignup = true
     } catch (e: unknown) {
       const code = e && typeof e === 'object' && 'code' in e ? (e as { code: string }).code : null
       if (code === 'P2002') {
-        // Already on the list — same generic success
+        // Already on the list — same generic success; no duplicate email
       } else {
         throw e
+      }
+    }
+
+    if (isNewSignup) {
+      try {
+        await sendWaitlistConfirmationEmail(email)
+      } catch (emailErr) {
+        console.error('Waitlist confirmation email failed:', emailErr)
       }
     }
 
