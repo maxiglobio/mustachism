@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  firstName String
+  lastName  String
+  createdAt DateTime @default(now())
+  licenses  License[]
+  orders    Order[]
+
+  @@map("users")
+}
+
+model License {
+  id           String   @id @default(cuid())
+  licenseNumber String  @unique
+  userId       String
+  status       String   @default("active") // active, revoked
+  issueDate    DateTime @default(now())
+  pricePaid    Float
+  sex          String?  // M, F, O
+  dateOfBirth  DateTime? // Date of birth
+  fullName     String?  // Full name for license card (e.g., "MR JOHN SNOW")
+  photo        String?  // Photo URL or base64
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id])
+  orders       Order[]
+
+  @@map("licenses")
+}
+
+model Order {
+  id              String    @id @default(cuid())
+  userId          String
+  licenseId       String?   // Optional until payment is completed
+  shippingAddress Json      // { country, city, addressLine, zip }
+  licenseType     String?   // A, B, L, H
+  sex             String?   // M, F, O
+  dateOfBirth     DateTime? // Date of birth
+  status          String    @default("pending") // pending, processing, shipped, delivered
+  createdAt       DateTime  @default(now())
+  user            User      @relation(fields: [userId], references: [id])
+  license         License?  @relation(fields: [licenseId], references: [id])
+
+  @@map("orders")
+}
+
+model LicenseNumber {
+  number    String  @id // 000-001, 000-002, … (NNN-NNN)
+  status    String  @default("available") // available, reserved, taken
+  priceTier String  @default("standard") // standard, premium
+  price     Float
+
+  @@map("license_numbers")
+}

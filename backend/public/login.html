@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-title" content="MUSTASHISM">
+  <title>Login - MUSTASHISM</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Login - MUSTASHISM">
+  <meta property="og:description" content="Official mustache licenses. A quiet resistance against plastic masculinity.">
+  <meta property="og:image" content="/assets/images/og-image.png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="537">
+  <meta property="og:image:alt" content="Get Mustache License — MUSTASHISM">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Login - MUSTASHISM">
+  <meta name="twitter:description" content="Official mustache licenses. A quiet resistance against plastic masculinity.">
+  <meta name="twitter:image" content="/assets/images/og-image.png">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <main class="main-content">
+    <div class="page-container">
+      <div class="auth-container">
+        <div class="auth-card">
+          <div class="auth-logo-wrap">
+            <a href="/" class="auth-logo-link" aria-label="MUSTASHISM home">
+              <img src="/assets/images/logo.svg" alt="" class="auth-logo-img">
+            </a>
+          </div>
+
+          <form id="login-form" class="auth-form">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required autocomplete="email">
+            </div>
+            
+            <div id="error-message" class="error-message hidden"></div>
+            
+            <button type="submit" class="btn-primary btn-large" id="submit-btn">
+              Login
+            </button>
+          </form>
+          
+          <div class="auth-footer">
+            <p>Don't have a license yet? <a href="/order.html">Select a license</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/assets/js/api-client.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script>
+    const loginForm = document.getElementById('login-form')
+    const errorMessage = document.getElementById('error-message')
+    const submitBtn = document.getElementById('submit-btn')
+
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault()
+      
+      const email = document.getElementById('email').value.trim()
+      
+      if (!email || !window.Utils.isValidEmail(email)) {
+        errorMessage.textContent = 'Please enter a valid email address'
+        errorMessage.classList.remove('hidden')
+        return
+      }
+
+      window.Utils.showLoading(submitBtn, 'Logging in...')
+      errorMessage.classList.add('hidden')
+
+      try {
+        await window.Auth.login(email)
+        window.location.href = '/dashboard.html'
+      } catch (error) {
+        errorMessage.textContent = error.message || 'Login failed. Please try again.'
+        errorMessage.classList.remove('hidden')
+        window.Utils.hideLoading(submitBtn)
+      }
+    })
+
+    // Check if already logged in
+    window.addEventListener('DOMContentLoaded', async () => {
+      await window.Auth.initAuth()
+      const authState = window.Auth.getAuthState()
+      if (authState.authenticated) {
+        window.location.href = '/dashboard.html'
+      }
+    })
+  </script>
+</body>
+</html>

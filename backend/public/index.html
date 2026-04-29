@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-title" content="MUSTASHISM">
+  <title>MUSTASHISM - A license for what remains</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="MUSTASHISM - A license for what remains">
+  <meta property="og:description" content="Official mustache licenses. A quiet resistance against plastic masculinity.">
+  <meta property="og:image" content="/assets/images/og-image.png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="537">
+  <meta property="og:image:alt" content="Get Mustache License — MUSTASHISM">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="MUSTASHISM - A license for what remains">
+  <meta name="twitter:description" content="Official mustache licenses. A quiet resistance against plastic masculinity.">
+  <meta name="twitter:image" content="/assets/images/og-image.png">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+  <!-- Header - Logo, Tab, Login -->
+  <header class="site-header">
+    <a href="/" class="sticky-logo-link">
+      <img src="/assets/images/logo.svg" alt="" class="sticky-logo-img">
+      <span class="sticky-logo-text">MUSTACHISM</span>
+    </a>
+    <nav class="header-tabs">
+      <a href="/" class="header-tab active" data-tab="license">License</a>
+      <span class="header-tab-sep">/</span>
+      <a href="/story.html" class="header-tab" data-tab="story">Story</a>
+    </nav>
+    <div id="login-button-container" class="login-button-container">
+      <button id="login-btn" class="btn-login">
+        <span id="login-text">Login</span>
+      </button>
+      <script>
+        (function () {
+          try {
+            var raw = localStorage.getItem('auth')
+            if (!raw) return
+            if (JSON.parse(raw).authenticated) {
+              var el = document.getElementById('login-text')
+              if (el) el.textContent = 'Dashboard'
+            }
+          } catch (e) {}
+        })()
+      </script>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-container">
+        <!-- Hero card video sequence -->
+        <div class="hero-card-container">
+          <div class="hero-card-video-wrap">
+            <video class="hero-card-video" autoplay muted loop playsinline poster="">
+              <source src="/assets/videos/3d-card-sequence.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <!-- CTA Button -->
+        <div id="original-cta" class="hero-cta">
+          <a href="/order.html" class="btn-primary btn-large">
+            Get Your Mustache License
+          </a>
+          <p class="hero-cta-subtitle">Starting from $49.99</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- USPs: steel, number, exclusivity -->
+    <section class="hero-usps-section" aria-labelledby="hero-usps-heading">
+      <h2 id="hero-usps-heading" class="hero-usps__sr-only">What you get</h2>
+      <div class="hero-usps-container">
+        <div class="hero-usps-grid">
+          <article class="hero-usp-card">
+            <div class="hero-usp-card__visual" aria-hidden="true">
+              <img
+                src="/assets/images/hero-usp-solid-steel.png"
+                alt=""
+                width="802"
+                height="802"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+              >
+            </div>
+            <h3 class="hero-usp-card__title">Solid Steel. No Plastic.</h3>
+            <p class="hero-usp-card__copy font-typewriter">Engraved. Permanent. Real.</p>
+          </article>
+          <article class="hero-usp-card">
+            <div class="hero-usp-card__visual" aria-hidden="true">
+              <img
+                src="/assets/images/hero-usp-your-number.png"
+                alt=""
+                width="802"
+                height="802"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <h3 class="hero-usp-card__title">Your Number. Your Mark.</h3>
+            <p class="hero-usp-card__copy font-typewriter">Choose it. Or take what’s left.</p>
+          </article>
+          <article class="hero-usp-card">
+            <div class="hero-usp-card__visual" aria-hidden="true">
+              <img
+                src="/assets/images/hero-usp-private.jpg"
+                alt=""
+                width="802"
+                height="802"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <h3 class="hero-usp-card__title">Not For Everyone.</h3>
+            <p class="hero-usp-card__copy font-typewriter">Private access. Limited issuance.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Presentation Box Section -->
+    <section
+      class="presentation-box-section box-sequence-section"
+      data-box-sequence
+      data-sequence-root="/assets/images/box-sequence"
+      data-sequence-start="10001"
+      data-sequence-count="100"
+    >
+      <div class="box-sequence-scroll">
+        <div class="box-sequence-sticky">
+          <div class="presentation-box-container">
+            <div class="price-badge-overlay">
+              <svg class="price-badge-svg" width="120" height="120" viewBox="0 0 467 467" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g class="price-badge-rotate">
+                  <path d="M257.994 24.3896L287.442 6.31543L305.659 35.7051L338.475 24.9209L349.435 57.7275L383.848 54.8135L386.959 89.2676L421.116 94.3828L416.211 128.626L448.27 141.494L435.613 173.682L463.845 193.607L444.12 222.005L467.003 247.915L441.271 270.989L457.572 301.488L427.223 317.996L436.062 351.438L402.729 360.491L403.632 395.073L369.113 396.182L362.03 430.041L328.188 423.146L313.499 454.455L282.156 439.928L260.655 467.001L233.502 445.624L206.348 467.001L184.848 439.928L153.504 454.455L138.816 423.146L104.973 430.041L97.8896 396.182L63.3711 395.073L64.2734 360.491L30.9404 351.438L39.7812 317.996L9.43066 301.488L25.7314 270.989L0 247.915L22.8838 222.005L3.1582 193.607L31.3896 173.682L18.7334 141.494L50.792 128.626L45.8877 94.3828L80.0439 89.2676L83.1553 54.8135L117.569 57.7275L128.528 24.9209L161.344 35.7051L179.562 6.31543L209.009 24.3896L233.502 0L257.994 24.3896Z" fill="black"/>
+                </g>
+                <g class="price-badge-fixed">
+                  <path d="M335.833 234.838C338.95 234.838 341.381 233.966 343.125 232.222C345.389 229.995 346.521 227.323 346.521 224.206V224.039C346.446 220.885 345.314 218.176 343.125 215.912C341.195 213.982 338.765 213.018 335.833 213.018C332.345 213.018 329.524 214.372 327.372 217.081C325.813 219.048 325.034 221.219 325.034 223.594V224.206C325.22 226.729 326.073 229.012 327.595 231.053C329.562 233.576 332.308 234.838 335.833 234.838ZM340.509 240.905C339.062 241.351 337.54 241.573 335.944 241.573C335.165 241.573 334.349 241.518 333.495 241.406C328.634 240.738 324.793 238.716 321.973 235.339C319.449 232.259 318.188 228.548 318.188 224.206C318.299 219.085 319.672 215.17 322.307 212.461C326.166 208.602 330.638 206.672 335.722 206.672C341.14 206.672 345.166 207.971 347.801 210.568C351.734 214.131 353.701 219.066 353.701 225.375C353.627 229.828 351.679 235.506 347.856 242.408C344.517 248.16 339.396 254.376 332.493 261.056H323.142L332.549 250.925L340.509 240.905Z" fill="white"/>
+                  <path d="M295.176 234.838C298.293 234.838 300.724 233.966 302.468 232.222C304.732 229.995 305.864 227.323 305.864 224.206V224.039C305.789 220.885 304.657 218.176 302.468 215.912C300.538 213.982 298.108 213.018 295.176 213.018C291.688 213.018 288.867 214.372 286.715 217.081C285.156 219.048 284.377 221.219 284.377 223.594V224.206C284.563 226.729 285.416 229.012 286.938 231.053C288.905 233.576 291.651 234.838 295.176 234.838ZM299.852 240.905C298.405 241.351 296.883 241.573 295.287 241.573C294.508 241.573 293.692 241.518 292.838 241.406C287.977 240.738 284.136 238.716 281.316 235.339C278.792 232.259 277.531 228.548 277.531 224.206C277.642 219.085 279.015 215.17 281.65 212.461C285.509 208.602 289.981 206.672 295.065 206.672C300.483 206.672 304.509 207.971 307.144 210.568C311.077 214.131 313.044 219.066 313.044 225.375C312.97 229.828 311.022 235.506 307.199 242.408C303.86 248.16 298.739 254.376 291.836 261.056H282.485L291.892 250.925L299.852 240.905Z" fill="white"/>
+                  <path d="M246.949 261V248.42H262.535V261H246.949Z" fill="white"/>
+                  <path d="M213.75 234.838C216.868 234.838 219.298 233.966 221.042 232.222C223.306 229.995 224.438 227.323 224.438 224.206V224.039C224.364 220.885 223.232 218.176 221.042 215.912C219.113 213.982 216.682 213.018 213.75 213.018C210.262 213.018 207.442 214.372 205.29 217.081C203.731 219.048 202.952 221.219 202.952 223.594V224.206C203.137 226.729 203.991 229.012 205.512 231.053C207.479 233.576 210.225 234.838 213.75 234.838ZM218.426 240.905C216.979 241.351 215.458 241.573 213.862 241.573C213.083 241.573 212.266 241.518 211.413 241.406C206.551 240.738 202.71 238.716 199.89 235.339C197.367 232.259 196.105 228.548 196.105 224.206C196.216 219.085 197.589 215.17 200.224 212.461C204.083 208.602 208.555 206.672 213.639 206.672C219.057 206.672 223.083 207.971 225.718 210.568C229.652 214.131 231.619 219.066 231.619 225.375C231.544 229.828 229.596 235.506 225.774 242.408C222.434 248.16 217.313 254.376 210.411 261.056H201.059L210.466 250.925L218.426 240.905Z" fill="white"/>
+                  <path d="M163.519 242.575H176.879V231.721H183.558V242.575H190.071V249.255H183.558V261.501H176.879V249.255H156.005V242.241L172.537 207.34H179.551L163.519 242.575Z" fill="white"/>
+                  <path d="M135.888 250.98C138.188 250.98 139.896 250.646 141.009 249.979C142.938 248.717 143.903 247.028 143.903 244.913C143.903 242.983 142.938 241.518 141.009 240.516C140.081 239.959 138.374 239.087 135.888 237.899V250.98ZM130.321 228.492V216.803C128.837 216.803 127.353 217.025 125.868 217.471C123.419 218.213 122.194 219.549 122.194 221.479C122.231 223.482 123.271 225.078 125.312 226.266L130.321 228.492ZM143.18 222.202C142.846 220.384 142.289 219.159 141.51 218.528C140.025 217.452 138.151 216.877 135.888 216.803V230.218L142.178 232.945C144.924 234.244 146.891 235.784 148.078 237.565C149.414 239.569 150.119 242.074 150.193 245.08V245.191C150.193 248.865 148.486 252.02 145.072 254.654C143.143 256.25 140.081 257.066 135.888 257.104V261H130.321V257.104C124.94 257.066 121.062 255.879 118.688 253.541C116.275 251.129 115.051 248.476 115.014 245.581H121.972C121.972 247.177 122.714 248.42 124.198 249.311C126.017 250.424 128.058 250.98 130.321 250.98V235.729C125.942 234.059 122.25 232.203 119.244 230.162C116.758 228.455 115.515 225.468 115.515 221.2C115.515 217.304 117.407 214.502 121.192 212.795C123.79 211.57 126.369 210.958 128.93 210.958C129.561 210.958 130.024 210.977 130.321 211.014V206.783H135.888V210.847C141.12 211.144 144.497 212.127 146.019 213.797C148.542 216.432 149.822 219.233 149.859 222.202H143.18Z" fill="white"/>
+                </g>
+              </svg>
+            </div>
+            <img
+              src="/assets/images/box-sequence/box-10001.webp"
+              alt="Premium presentation box for your mustache license card"
+              class="presentation-box-img box-sequence-frame"
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Middle Presentation Box Section -->
+    <section
+      class="presentation-box-section presentation-box-middle box-sequence-section"
+      data-box-sequence
+      data-sequence-root="/assets/images/box-sequence-middle"
+      data-sequence-start="20001"
+      data-sequence-count="100"
+    >
+      <div class="box-sequence-scroll">
+        <div class="box-sequence-sticky">
+          <div class="presentation-box-container">
+            <div class="price-badge-overlay">
+              <svg class="price-badge-svg" width="120" height="120" viewBox="0 0 467 467" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g class="price-badge-rotate">
+                  <path d="M257.994 24.3896L287.442 6.31543L305.659 35.7051L338.475 24.9209L349.435 57.7275L383.848 54.8135L386.959 89.2676L421.116 94.3828L416.211 128.626L448.27 141.494L435.613 173.682L463.845 193.607L444.12 222.005L467.003 247.915L441.271 270.989L457.572 301.488L427.223 317.996L436.062 351.438L402.729 360.491L403.632 395.073L369.113 396.182L362.03 430.041L328.188 423.146L313.499 454.455L282.156 439.928L260.655 467.001L233.502 445.624L206.348 467.001L184.848 439.928L153.504 454.455L138.816 423.146L104.973 430.041L97.8896 396.182L63.3711 395.073L64.2734 360.491L30.9404 351.438L39.7812 317.996L9.43066 301.488L25.7314 270.989L0 247.915L22.8838 222.005L3.1582 193.607L31.3896 173.682L18.7334 141.494L50.792 128.626L45.8877 94.3828L80.0439 89.2676L83.1553 54.8135L117.569 57.7275L128.528 24.9209L161.344 35.7051L179.562 6.31543L209.009 24.3896L233.502 0L257.994 24.3896Z" fill="black"/>
+                </g>
+                <g class="price-badge-fixed">
+                  <path d="M335.833 234.838C338.95 234.838 341.381 233.966 343.125 232.222C345.389 229.995 346.521 227.323 346.521 224.206V224.039C346.446 220.885 345.314 218.176 343.125 215.912C341.195 213.982 338.765 213.018 335.833 213.018C332.345 213.018 329.524 214.372 327.372 217.081C325.813 219.048 325.034 221.219 325.034 223.594V224.206C325.22 226.729 326.073 229.012 327.595 231.053C329.562 233.576 332.308 234.838 335.833 234.838ZM340.509 240.905C339.062 241.351 337.54 241.573 335.944 241.573C335.165 241.573 334.349 241.518 333.495 241.406C328.634 240.738 324.793 238.716 321.973 235.339C319.449 232.259 318.188 228.548 318.188 224.206C318.299 219.085 319.672 215.17 322.307 212.461C326.166 208.602 330.638 206.672 335.722 206.672C341.14 206.672 345.166 207.971 347.801 210.568C351.734 214.131 353.701 219.066 353.701 225.375C353.627 229.828 351.679 235.506 347.856 242.408C344.517 248.16 339.396 254.376 332.493 261.056H323.142L332.549 250.925L340.509 240.905Z" fill="white"/>
+                  <path d="M295.176 234.838C298.293 234.838 300.724 233.966 302.468 232.222C304.732 229.995 305.864 227.323 305.864 224.206V224.039C305.789 220.885 304.657 218.176 302.468 215.912C300.538 213.982 298.108 213.018 295.176 213.018C291.688 213.018 288.867 214.372 286.715 217.081C285.156 219.048 284.377 221.219 284.377 223.594V224.206C284.563 226.729 285.416 229.012 286.938 231.053C288.905 233.576 291.651 234.838 295.176 234.838ZM299.852 240.905C298.405 241.351 296.883 241.573 295.287 241.573C294.508 241.573 293.692 241.518 292.838 241.406C287.977 240.738 284.136 238.716 281.316 235.339C278.792 232.259 277.531 228.548 277.531 224.206C277.642 219.085 279.015 215.17 281.65 212.461C285.509 208.602 289.981 206.672 295.065 206.672C300.483 206.672 304.509 207.971 307.144 210.568C311.077 214.131 313.044 219.066 313.044 225.375C312.97 229.828 311.022 235.506 307.199 242.408C303.86 248.16 298.739 254.376 291.836 261.056H282.485L291.892 250.925L299.852 240.905Z" fill="white"/>
+                  <path d="M246.949 261V248.42H262.535V261H246.949Z" fill="white"/>
+                  <path d="M213.75 234.838C216.868 234.838 219.298 233.966 221.042 232.222C223.306 229.995 224.438 227.323 224.438 224.206V224.039C224.364 220.885 223.232 218.176 221.042 215.912C219.113 213.982 216.682 213.018 213.75 213.018C210.262 213.018 207.442 214.372 205.29 217.081C203.731 219.048 202.952 221.219 202.952 223.594V224.206C203.137 226.729 203.991 229.012 205.512 231.053C207.479 233.576 210.225 234.838 213.75 234.838ZM218.426 240.905C216.979 241.351 215.458 241.573 213.862 241.573C213.083 241.573 212.266 241.518 211.413 241.406C206.551 240.738 202.71 238.716 199.89 235.339C197.367 232.259 196.105 228.548 196.105 224.206C196.216 219.085 197.589 215.17 200.224 212.461C204.083 208.602 208.555 206.672 213.639 206.672C219.057 206.672 223.083 207.971 225.718 210.568C229.652 214.131 231.619 219.066 231.619 225.375C231.544 229.828 229.596 235.506 225.774 242.408C222.434 248.16 217.313 254.376 210.411 261.056H201.059L210.466 250.925L218.426 240.905Z" fill="white"/>
+                  <path d="M173.094 234.838C176.211 234.838 178.641 233.966 180.385 232.222C182.649 229.995 183.781 227.323 183.781 224.206V224.039C183.707 220.885 182.575 218.176 180.385 215.912C178.456 213.982 176.025 213.018 173.094 213.018C169.605 213.018 166.785 214.372 164.633 217.081C163.074 219.048 162.295 221.219 162.295 223.594V224.206C162.48 226.729 163.334 229.012 164.855 231.053C166.822 233.576 169.568 234.838 173.094 234.838ZM177.769 240.905C176.322 241.351 174.801 241.573 173.205 241.573C172.426 241.573 171.609 241.518 170.756 241.406C165.894 240.738 162.053 238.716 159.233 235.339C156.71 232.259 155.448 228.548 155.448 224.206C155.559 219.085 156.932 215.17 159.567 212.461C163.427 208.602 167.898 206.672 172.982 206.672C178.4 206.672 182.427 207.971 185.061 210.568C188.995 214.131 190.962 219.066 190.962 225.375C190.887 229.828 188.939 235.506 185.117 242.408C181.777 248.16 176.656 254.376 169.754 261.056H160.402L169.809 250.925L177.769 240.905Z" fill="white"/>
+                  <path d="M135.888 250.98C138.188 250.98 139.896 250.646 141.009 249.979C142.938 248.717 143.903 247.028 143.903 244.913C143.903 242.983 142.938 241.518 141.009 240.516C140.081 239.959 138.374 239.087 135.888 237.899V250.98ZM130.321 228.492V216.803C128.837 216.803 127.353 217.025 125.868 217.471C123.419 218.213 122.194 219.549 122.194 221.479C122.231 223.482 123.271 225.078 125.312 226.266L130.321 228.492ZM143.18 222.202C142.846 220.384 142.289 219.159 141.51 218.528C140.025 217.452 138.151 216.877 135.888 216.803V230.218L142.178 232.945C144.924 234.244 146.891 235.784 148.078 237.565C149.414 239.569 150.119 242.074 150.193 245.08V245.191C150.193 248.865 148.486 252.02 145.072 254.654C143.143 256.25 140.081 257.066 135.888 257.104V261H130.321V257.104C124.94 257.066 121.062 255.879 118.688 253.541C116.275 251.129 115.051 248.476 115.014 245.581H121.972C121.972 247.177 122.714 248.42 124.198 249.311C126.017 250.424 128.058 250.98 130.321 250.98V235.729C125.942 234.059 122.25 232.203 119.244 230.162C116.758 228.455 115.515 225.468 115.515 221.2C115.515 217.304 117.407 214.502 121.192 212.795C123.79 211.57 126.369 210.958 128.93 210.958C129.561 210.958 130.024 210.977 130.321 211.014V206.783H135.888V210.847C141.12 211.144 144.497 212.127 146.019 213.797C148.542 216.432 149.822 219.233 149.859 222.202H143.18Z" fill="white"/>
+                </g>
+              </svg>
+            </div>
+            <img
+              src="/assets/images/box-sequence-middle/box-20001.webp"
+              alt="Matte black presentation box with a custom cutout for a mustache license card"
+              class="presentation-box-img box-sequence-frame"
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Premium Presentation Box Section (Box3 scroll sequence) -->
+    <section
+      class="presentation-box-section presentation-box-premium box-sequence-section"
+      data-box-sequence
+      data-sequence-root="/assets/images/box-sequence-premium"
+      data-sequence-start="30000"
+      data-sequence-count="101"
+    >
+      <div class="box-sequence-scroll">
+        <div class="box-sequence-sticky">
+          <div class="presentation-box-container">
+            <div class="price-badge-overlay">
+              <svg class="price-badge-svg" width="120" height="120" viewBox="0 0 467 467" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g class="price-badge-rotate">
+                  <path d="M257.994 24.3896L287.442 6.31543L305.659 35.7051L338.475 24.9209L349.435 57.7275L383.848 54.8135L386.959 89.2676L421.116 94.3828L416.211 128.626L448.27 141.494L435.613 173.682L463.845 193.607L444.12 222.005L467.003 247.915L441.271 270.989L457.572 301.488L427.223 317.996L436.062 351.438L402.729 360.491L403.632 395.073L369.113 396.182L362.03 430.041L328.188 423.146L313.499 454.455L282.156 439.928L260.655 467.001L233.502 445.624L206.348 467.001L184.848 439.928L153.504 454.455L138.816 423.146L104.973 430.041L97.8896 396.182L63.3711 395.073L64.2734 360.491L30.9404 351.438L39.7812 317.996L9.43066 301.488L25.7314 270.989L0 247.915L22.8838 222.005L3.1582 193.607L31.3896 173.682L18.7334 141.494L50.792 128.626L45.8877 94.3828L80.0439 89.2676L83.1553 54.8135L117.569 57.7275L128.528 24.9209L161.344 35.7051L179.562 6.31543L209.009 24.3896L233.502 0L257.994 24.3896Z" fill="white"/>
+                </g>
+                <g class="price-badge-fixed">
+                  <path d="M355.49 234.838C358.607 234.838 361.038 233.966 362.782 232.222C365.046 229.995 366.178 227.323 366.178 224.206V224.039C366.103 220.885 364.972 218.176 362.782 215.912C360.852 213.982 358.422 213.018 355.49 213.018C352.002 213.018 349.181 214.372 347.029 217.081C345.471 219.048 344.691 221.219 344.691 223.594V224.206C344.877 226.729 345.73 229.012 347.252 231.053C349.219 233.576 351.965 234.838 355.49 234.838ZM360.166 240.905C358.719 241.351 357.197 241.573 355.601 241.573C354.822 241.573 354.006 241.518 353.152 241.406C348.291 240.738 344.45 238.716 341.63 235.339C339.106 232.259 337.845 228.548 337.845 224.206C337.956 219.085 339.329 215.17 341.964 212.461C345.823 208.602 350.295 206.672 355.379 206.672C360.797 206.672 364.823 207.971 367.458 210.568C371.391 214.131 373.358 219.066 373.358 225.375C373.284 229.828 371.336 235.506 367.514 242.408C364.174 248.16 359.053 254.376 352.15 261.056H342.799L352.206 250.925L360.166 240.905Z" fill="black"/>
+                  <path d="M314.833 234.838C317.95 234.838 320.381 233.966 322.125 232.222C324.389 229.995 325.521 227.323 325.521 224.206V224.039C325.446 220.885 324.314 218.176 322.125 215.912C320.195 213.982 317.765 213.018 314.833 213.018C311.345 213.018 308.524 214.372 306.372 217.081C304.813 219.048 304.034 221.219 304.034 223.594V224.206C304.22 226.729 305.073 229.012 306.595 231.053C308.562 233.576 311.308 234.838 314.833 234.838ZM319.509 240.905C318.062 241.351 316.54 241.573 314.944 241.573C314.165 241.573 313.349 241.518 312.495 241.406C307.634 240.738 303.793 238.716 300.973 235.339C298.449 232.259 297.188 228.548 297.188 224.206C297.299 219.085 298.672 215.17 301.307 212.461C305.166 208.602 309.638 206.672 314.722 206.672C320.14 206.672 324.166 207.971 326.801 210.568C330.734 214.131 332.701 219.066 332.701 225.375C332.627 229.828 330.679 235.506 326.856 242.408C323.517 248.16 318.396 254.376 311.493 261.056H302.142L311.549 250.925L319.509 240.905Z" fill="black"/>
+                  <path d="M266.606 261V248.42H282.192V261H266.606Z" fill="black"/>
+                  <path d="M233.408 234.838C236.525 234.838 238.955 233.966 240.7 232.222C242.963 229.995 244.095 227.323 244.095 224.206V224.039C244.021 220.885 242.889 218.176 240.7 215.912C238.77 213.982 236.339 213.018 233.408 213.018C229.919 213.018 227.099 214.372 224.947 217.081C223.388 219.048 222.609 221.219 222.609 223.594V224.206C222.794 226.729 223.648 229.012 225.169 231.053C227.136 233.576 229.882 234.838 233.408 234.838ZM238.083 240.905C236.636 241.351 235.115 241.573 233.519 241.573C232.74 241.573 231.923 241.518 231.07 241.406C226.208 240.738 222.368 238.716 219.547 235.339C217.024 232.259 215.762 228.548 215.762 224.206C215.873 219.085 217.246 215.17 219.881 212.461C223.741 208.602 228.212 206.672 233.296 206.672C238.714 206.672 242.741 207.971 245.375 210.568C249.309 214.131 251.276 219.066 251.276 225.375C251.202 229.828 249.253 235.506 245.431 242.408C242.091 248.16 236.97 254.376 230.068 261.056H220.716L230.123 250.925L238.083 240.905Z" fill="black"/>
+                  <path d="M192.751 234.838C195.868 234.838 198.298 233.966 200.043 232.222C202.306 229.995 203.438 227.323 203.438 224.206V224.039C203.364 220.885 202.232 218.176 200.043 215.912C198.113 213.982 195.682 213.018 192.751 213.018C189.262 213.018 186.442 214.372 184.29 217.081C182.731 219.048 181.952 221.219 181.952 223.594V224.206C182.137 226.729 182.991 229.012 184.512 231.053C186.479 233.576 189.225 234.838 192.751 234.838ZM197.426 240.905C195.979 241.351 194.458 241.573 192.862 241.573C192.083 241.573 191.266 241.518 190.413 241.406C185.551 240.738 181.711 238.716 178.89 235.339C176.367 232.259 175.105 228.548 175.105 224.206C175.216 219.085 176.589 215.17 179.224 212.461C183.084 208.602 187.555 206.672 192.639 206.672C198.057 206.672 202.084 207.971 204.718 210.568C208.652 214.131 210.619 219.066 210.619 225.375C210.545 229.828 208.596 235.506 204.774 242.408C201.434 248.16 196.313 254.376 189.411 261.056H180.059L189.466 250.925L197.426 240.905Z" fill="black"/>
+                  <path d="M155.6 261V216.469L142.798 227.49V217.805L155.489 207.451H163.282V261H155.6Z" fill="black"/>
+                  <path d="M114.888 250.98C117.188 250.98 118.896 250.646 120.009 249.979C121.938 248.717 122.903 247.028 122.903 244.913C122.903 242.983 121.938 241.518 120.009 240.516C119.081 239.959 117.374 239.087 114.888 237.899V250.98ZM109.321 228.492V216.803C107.837 216.803 106.353 217.025 104.868 217.471C102.419 218.213 101.194 219.549 101.194 221.479C101.231 223.482 102.271 225.078 104.312 226.266L109.321 228.492ZM122.18 222.202C121.846 220.384 121.289 219.159 120.51 218.528C119.025 217.452 117.151 216.877 114.888 216.803V230.218L121.178 232.945C123.924 234.244 125.891 235.784 127.078 237.565C128.414 239.569 129.119 242.074 129.193 245.08V245.191C129.193 248.865 127.486 252.02 124.072 254.654C122.143 256.25 119.081 257.066 114.888 257.104V261H109.321V257.104C103.94 257.066 100.062 255.879 97.6875 253.541C95.2754 251.129 94.0508 248.476 94.0137 245.581H100.972C100.972 247.177 101.714 248.42 103.198 249.311C105.017 250.424 107.058 250.98 109.321 250.98V235.729C104.942 234.059 101.25 232.203 98.2441 230.162C95.7578 228.455 94.5146 225.468 94.5146 221.2C94.5146 217.304 96.4072 214.502 100.192 212.795C102.79 211.57 105.369 210.958 107.93 210.958C108.561 210.958 109.024 210.977 109.321 211.014V206.783H114.888V210.847C120.12 211.144 123.497 212.127 125.019 213.797C127.542 216.432 128.822 219.233 128.859 222.202H122.18Z" fill="black"/>
+                </g>
+              </svg>
+            </div>
+            <img
+              src="/assets/images/box-sequence-premium/box-30000.webp"
+              alt="Premium luxury presentation box with velvet interior"
+              class="presentation-box-img box-sequence-frame"
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEO Content Section -->
+    <section id="what-is-license" class="content-section">
+      <div class="content-container">
+        <h2>What Is a Mustache License?</h2>
+        <div class="content-text">
+          <p>This is not grooming. This is not irony. This is not a joke product.</p>
+          <p>The world has become obsessed with smoothness, cleanliness, youth, and the absence of scars. Men who have lived through pain, loss, speed, mistakes, and survival understand one thing: a mustache is often the last thing that wasn't bought, optimized, or erased.</p>
+          <p>Mustashism exists to license that.</p>
+          <p>A license here is not regulation. It is symbolic permission. A marker of lived experience. Recognition that what remains after everything else has been stripped away deserves to be visible.</p>
+          <p>We certify what survived. We document what wasn't erased. We give permission to be seen.</p>
+          <p>This is ideological infrastructure. Not marketing copy. Not a trend. A quiet resistance against plastic masculinity.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="faq-container">
+        <div class="faq-list">
+          <div class="faq-item">
+            <h3 class="faq-question">Why do mustaches need a license?</h3>
+            <div class="faq-answer">
+              <p>Because everything real gets erased first. We certify what survived.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-question">Is this a joke?</h3>
+            <div class="faq-answer">
+              <p>No. Jokes are louder.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-question">Do I need to prove anything to get a license?</h3>
+            <div class="faq-answer">
+              <p>No. If you're here, you already know.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-question">What does the license give me?</h3>
+            <div class="faq-answer">
+              <p>Permission. Recognition. A physical mark that says: you're allowed to be visible.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-question">Is the license permanent?</h3>
+            <div class="faq-answer">
+              <p>Nothing is permanent. But this lasts longer than trends.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <h3 class="faq-question">Can I buy this as a gift?</h3>
+            <div class="faq-answer">
+              <p>Yes. Some men need permission more than others.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-content">
+          <div class="footer-copyright">
+            © <span id="current-year"></span> MUSTASHISM. All rights reserved.
+          </div>
+          <div class="footer-links">
+            <a href="/privacy-policy.html">Privacy Policy</a>
+            <a href="/terms-of-service.html">Terms of Service</a>
+            <a href="#">Contact</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="/assets/js/api-client.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/box-sequence.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script>
+    function initFaqAccordion() {
+      const list = document.querySelector('.faq-list')
+      if (!list) return
+      list.addEventListener('click', (e) => {
+        const question = e.target.closest('.faq-question')
+        if (!question || !list.contains(question)) return
+        const row = question.closest('.faq-item')
+        if (!row) return
+        const isOpen = row.classList.contains('active')
+        list.querySelectorAll('.faq-item').forEach((item) => {
+          if (item !== row) item.classList.remove('active')
+        })
+        row.classList.toggle('active', !isOpen)
+      })
+    }
+
+    // Set current year
+    window.addEventListener('DOMContentLoaded', async () => {
+      initFaqAccordion()
+
+      const yearSpan = document.getElementById('current-year')
+      if (yearSpan) yearSpan.textContent = new Date().getFullYear()
+
+      // Initialize auth and update login button (FAQ works even if this hangs or fails)
+      try {
+        await window.Auth?.initAuth()
+      } catch (err) {
+        console.warn('Auth init failed:', err)
+      }
+
+      // Login button handler
+      document.getElementById('login-btn')?.addEventListener('click', async () => {
+        const currentAuthState = window.Auth?.getAuthState()
+        if (currentAuthState?.authenticated) {
+          window.location.href = '/dashboard.html'
+        } else {
+          window.location.href = '/login.html'
+        }
+      })
+
+      // Dark background when the 3rd sequence stage (sticky) is in the main viewport,
+      // not when the outer scroll track first touches the edge (240vh section).
+      const premiumStage = document.querySelector('.presentation-box-premium .box-sequence-sticky')
+      if (premiumStage) {
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            document.body.classList.toggle('bg-premium-visible', entry.isIntersecting)
+          },
+          {
+            threshold: 0,
+            // Inset root so the transition tracks the visible “video” area, not the section edge
+            rootMargin: '-10vh 0px -14vh 0px',
+          }
+        )
+        observer.observe(premiumStage)
+      }
+
+    })
+  </script>
+</body>
+</html>

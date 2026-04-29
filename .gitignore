@@ -1,0 +1,13 @@
+.vercel
+.DS_Store
+
+# App lives in backend/
+backend/node_modules/
+backend/.next/
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Logs / misc
+*.log
+npm-debug.log*

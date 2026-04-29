@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/images/icon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" sizes="180x180">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="apple-mobile-web-app-title" content="MUSTASHISM">
+  <title>Order License - MUSTASHISM</title>
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Order License - MUSTASHISM">
+  <meta property="og:description" content="Official mustache licenses. A quiet resistance against plastic masculinity.">
+  <meta property="og:image" content="/assets/images/og-image.png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="537">
+  <meta property="og:image:alt" content="Get Mustache License — MUSTASHISM">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Order License - MUSTASHISM">
+  <meta name="twitter:description" content="Official mustache licenses. A quiet resistance against plastic masculinity.">
+  <meta name="twitter:image" content="/assets/images/og-image.png">
+  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="preload" href="/assets/models/3d-card-order.glb" as="fetch" crossorigin>
+  <link rel="modulepreload" href="https://unpkg.com/three@0.170.0/build/three.module.js">
+  <link rel="modulepreload" href="https://unpkg.com/meshoptimizer@1.0.1/meshopt_decoder.mjs">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+      "three/": "https://unpkg.com/three@0.170.0/",
+      "meshoptimizer/decoder": "https://unpkg.com/meshoptimizer@1.0.1/meshopt_decoder.mjs"
+    }
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header order-page-header">
+    <a href="/" class="btn-back" id="order-back-link">Back</a>
+    <h1 class="order-header-title">Order License</h1>
+  </header>
+
+  <main class="main-content">
+    <div class="page-container order-page">
+      <div class="form-preview-container">
+        <!-- License Preview -->
+        <div class="license-preview-section">
+          <div class="license-card-live-preview">
+            <div class="license-card-wrapper license-card-wrapper--order">
+              <img src="/assets/images/license-back-transparent.png" alt="License Back" class="license-background license-card-fallback" id="license-bg-fallback">
+              <span class="license-card-shimmer" aria-hidden="true"></span>
+              <div class="license-card-3d" id="order-card-3d">
+                <canvas id="order-card-3d-canvas" class="license-card-3d-canvas"></canvas>
+              </div>
+              <div class="license-overlay license-number-overlay" id="preview-license-number">
+                <span class="license-overlay-title license-number-heading">MUSTACHISM LICENCE #</span>
+                <span class="license-overlay-value license-number-value" id="preview-number-text"></span>
+              </div>
+              <div class="license-overlay license-prefix-overlay" id="preview-prefix">
+                <span class="license-overlay-title">PREFIX</span>
+                <span class="license-overlay-value" id="preview-prefix-text"></span>
+              </div>
+              <div class="license-overlay license-name-overlay license-firstname" id="preview-first-name">
+                <span class="license-overlay-title">NAME</span>
+                <span class="license-overlay-value" id="preview-firstname-text"></span>
+              </div>
+              <div class="license-photo-overlay license-photo-overlay--empty" id="preview-photo">
+                <div class="license-photo-overlay-frame">
+                  <img id="preview-photo-img" src="" alt="">
+                  <span class="license-photo-placeholder" id="preview-photo-placeholder" aria-hidden="true">—</span>
+                </div>
+              </div>
+              <div class="license-overlay license-sex-overlay" id="preview-sex">
+                <span class="license-overlay-title">SEX</span>
+                <span class="license-overlay-value" id="preview-sex-text"></span>
+              </div>
+              <div class="license-overlay license-dob-overlay" id="preview-dob">
+                <span class="license-overlay-title">DOB</span>
+                <span class="license-overlay-value" id="preview-dob-text"></span>
+              </div>
+              <div class="license-overlay license-issue-date-overlay" id="preview-issue-date">
+                <span class="license-overlay-title">ISSUE DATE</span>
+                <span class="license-overlay-value" id="preview-issue-date-text"></span>
+              </div>
+              <div class="license-overlay license-exp-overlay" id="preview-exp">
+                <span class="license-overlay-title">EXP</span>
+                <span class="license-overlay-value" id="preview-exp-text">NEVER</span>
+              </div>
+              <div class="license-overlay license-valid-overlay" id="preview-valid">
+                <span class="license-overlay-title">VALID</span>
+                <span class="license-overlay-value" id="preview-valid-text">EVERYWHERE</span>
+              </div>
+              <div class="license-overlay license-type-overlay" id="preview-license-type">
+                <span class="license-overlay-title">CLASS</span>
+                <span class="license-overlay-value" id="preview-type-text">A</span>
+              </div>
+            </div>
+            <div class="license-info">
+              <p class="form-subtitle">License: <span id="license-display"></span></p>
+              <p class="form-price">Price: <span id="price-display"></span></p>
+              <button type="button" class="btn-secondary btn-choose-custom" id="choose-custom-number-btn">
+                Choose custom number
+              </button>
+              <div class="form-actions form-actions-desktop">
+                <button type="submit" form="order-form" class="btn-primary btn-large" id="submit-btn-desktop">
+                  Pay with Stripe <span class="price-in-button"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="form-section">
+          <form id="order-form" class="personal-form order-form">
+            <div class="form-group">
+              <label class="order-form-label" for="prefix">PREFIX</label>
+              <select id="prefix" name="prefix">
+                <option value="">None</option>
+                <option value="Mr.">Mr.</option>
+                <option value="Ms.">Ms.</option>
+                <option value="Mrs.">Mrs.</option>
+                <option value="Miss">Miss</option>
+                <option value="Mx.">Mx.</option>
+                <option value="Dr.">Dr.</option>
+                <option value="Prof.">Prof.</option>
+                <option value="Rev.">Rev.</option>
+                <option value="Hon.">Hon.</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="order-form-label" for="fullName">NAME *</label>
+              <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+            </div>
+            <div class="form-row form-row--split">
+              <div class="form-group">
+                <label class="order-form-label" for="sex">SEX *</label>
+                <select id="sex" name="sex" required>
+                  <option value="">Select</option>
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                  <option value="O">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="order-form-label" for="dateOfBirth">DOB *</label>
+                <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="order-form-label" for="photo">PHOTO <span class="order-form-label-optional">(optional)</span></label>
+              <input type="file" id="photo" name="photo" accept="image/*" capture="user">
+              <small class="form-hint">Upload a photo for your license card</small>
+              <div id="photo-preview" class="photo-preview hidden">
+                <img id="photo-preview-img" src="" alt="Photo preview">
+                <button type="button" id="photo-remove-btn" class="photo-remove-btn">Remove photo</button>
+              </div>
+            </div>
+            <div class="form-group form-group--class">
+              <span class="order-form-label" id="license-class-label">CLASS *</span>
+              <div class="license-type-buttons" role="group" aria-labelledby="license-class-label">
+                <button type="button" class="license-type-btn active" data-type="A">A</button>
+                <button type="button" class="license-type-btn" data-type="B">B</button>
+                <button type="button" class="license-type-btn" data-type="L">L</button>
+                <button type="button" class="license-type-btn" data-type="H">H</button>
+              </div>
+              <p class="license-class-hint" id="license-class-description" aria-live="polite"></p>
+            </div>
+            <div class="form-group">
+              <label class="order-form-label" for="email">EMAIL *</label>
+              <input type="email" id="email" name="email" required autocomplete="email">
+            </div>
+            <div id="error-message" class="error-message hidden"></div>
+            <div class="form-actions form-actions-mobile">
+              <button type="submit" class="btn-primary btn-large" id="submit-btn">
+                Pay with Stripe <span class="price-in-button"></span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Choose License Modal (full selector with search, categories, grid) -->
+  <div id="custom-number-modal" class="custom-number-modal hidden">
+    <div class="custom-number-modal-content custom-number-modal-large">
+      <div class="custom-number-modal-header">
+        <h3 class="custom-number-modal-title">Choose license number</h3>
+        <button type="button" class="custom-number-modal-close" id="custom-number-modal-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="custom-number-modal-search">
+        <input type="text" id="license-search-modal" class="search-input" placeholder="Enter your license number (e.g. 000-020 or 20)" autocomplete="off">
+      </div>
+      <div class="filters-wrapper custom-number-filters">
+        <div class="filters" id="modal-filter-btns">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="cinema-film">Cinema</button>
+          <button class="filter-btn" data-filter="music-audio">Music</button>
+          <button class="filter-btn" data-filter="art-design">Art</button>
+          <button class="filter-btn" data-filter="historical-dates">History</button>
+          <button class="filter-btn" data-filter="cultural-symbolic">Culture</button>
+          <button class="filter-btn" data-filter="technology-computing">Tech</button>
+          <button class="filter-btn" data-filter="sports-games">Sports</button>
+          <button class="filter-btn" data-filter="philosophy-literature">Philosophy</button>
+          <button class="filter-btn" data-filter="gaming-internet">Gaming</button>
+          <button class="filter-btn" data-filter="mathematical-constants">Math</button>
+          <button class="filter-btn" data-filter="physics-constants">Physics</button>
+          <button class="filter-btn" data-filter="astronomy-constants">Astronomy</button>
+          <button class="filter-btn" data-filter="chemistry-constants">Chemistry</button>
+          <button class="filter-btn" data-filter="reserved">Reserved</button>
+        </div>
+      </div>
+      <div id="license-grid-modal" class="license-grid license-grid-modal">
+        <div class="loading-state">Loading licenses...</div>
+      </div>
+      <div class="load-more-container">
+        <button id="load-more-modal-btn" class="btn-secondary hidden">Load More</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leave order page confirmation -->
+  <div id="order-back-confirm-modal" class="nav-confirm-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="order-back-confirm-title">
+    <div class="nav-confirm-dialog">
+      <h3 id="order-back-confirm-title" class="nav-confirm-title">Leave this page?</h3>
+      <p class="nav-confirm-text">You have entered information on this order. If you go back now, your changes will be lost.</p>
+      <div class="nav-confirm-actions">
+        <button type="button" class="btn-secondary" id="order-back-confirm-cancel">Stay</button>
+        <button type="button" class="btn-primary" id="order-back-confirm-leave">Leave</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Popup -->
+  <div id="payment-popup-overlay" class="payment-popup-overlay hidden">
+    <div class="payment-popup">
+      <div class="payment-popup-header">
+        <div class="payment-popup-logo">
+          <span class="payment-popup-logo-text">Stripe</span>
+        </div>
+        <button type="button" class="payment-popup-close" id="payment-popup-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="payment-popup-body">
+        <h3 class="payment-popup-title">Complete your payment</h3>
+        <p class="payment-popup-subtitle">Mustache License <span id="popup-license-number"></span></p>
+        <div class="payment-popup-form">
+          <div class="payment-popup-field">
+            <label>Card number</label>
+            <input type="text" placeholder="4242 4242 4242 4242" value="4242 4242 4242 4242" readonly class="payment-popup-input">
+          </div>
+          <div class="payment-popup-row">
+            <div class="payment-popup-field">
+              <label>Expiry</label>
+              <input type="text" placeholder="MM/YY" value="12/34" readonly class="payment-popup-input">
+            </div>
+            <div class="payment-popup-field">
+              <label>CVC</label>
+              <input type="text" placeholder="123" value="123" readonly class="payment-popup-input">
+            </div>
+          </div>
+          <div class="payment-popup-field">
+            <label>Name on card</label>
+            <input type="text" placeholder="Name" value="Test User" readonly class="payment-popup-input">
+          </div>
+        </div>
+        <div class="payment-popup-amount">
+          <span>Total</span>
+          <span id="popup-price"></span>
+        </div>
+        <button type="button" class="btn-primary btn-large payment-popup-pay" id="payment-popup-pay">
+          Pay <span id="popup-pay-amount"></span>
+        </button>
+        <p class="payment-popup-demo">Demo mode — no real charge</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/api-client.js"></script>
+  <script src="/assets/js/auth.js"></script>
+  <script src="/assets/js/utils.js"></script>
+  <script type="module" src="/assets/js/order-card-3d.js"></script>
+  <script>
+    let selectedLicense = null
+    let selectedLicenseType = 'A'
+    let photoFile = null
+    let photoDataUrl = null
+    let initialOrderLicenseNumber = null
+
+    const LICENSE_CLASS_HELP = {
+      A: 'A — Standard: everyday recognition on your license.',
+      B: 'B — Endurance: for sustained, long-term wear.',
+      L: 'L — Lifelong: marks a permanent commitment.',
+      H: 'H — Heritage: highest distinction tier.',
+    }
+
+    function updateLicenseClassDescription() {
+      const el = document.getElementById('license-class-description')
+      if (!el) return
+      el.textContent = LICENSE_CLASS_HELP[selectedLicenseType] || ''
+    }
+
+    const issueDate = new Date()
+    const issueDateFormatted = `${issueDate.getMonth() + 1}/${issueDate.getDate()}/${issueDate.getFullYear()}`
+
+    function formatDate(dateString) {
+      if (!dateString) return ''
+      const date = new Date(dateString + 'T00:00:00')
+      return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+    }
+
+    function orderFormHasDraftData() {
+      const fullName = document.getElementById('fullName')?.value?.trim() ?? ''
+      const email = document.getElementById('email')?.value?.trim() ?? ''
+      const prefix = document.getElementById('prefix')?.value ?? ''
+      const sex = document.getElementById('sex')?.value ?? ''
+      const dob = document.getElementById('dateOfBirth')?.value ?? ''
+      if (fullName || email || prefix || sex || dob) return true
+      if (photoFile || photoDataUrl) return true
+      if (selectedLicenseType !== 'A') return true
+      if (initialOrderLicenseNumber && selectedLicense?.number && selectedLicense.number !== initialOrderLicenseNumber) {
+        return true
+      }
+      return false
+    }
+
+    function normalizeLicenseNumber(input) {
+      if (!input || !input.trim()) return null
+      const s = input.trim()
+      if (/^\d{3}-\d{3}$/.test(s)) return s
+      const digits = s.replace(/^M-?/i, '').replace(/-/g, '').replace(/\s/g, '')
+      if (!/^\d+$/.test(digits)) return null
+      const actualNum = digits.replace(/^0+/, '') || '0'
+      const padded = actualNum.padStart(6, '0')
+      return padded.slice(0, 3) + '-' + padded.slice(3, 6)
+    }
+
+    function updatePriceDisplay() {
+      const price = selectedLicense?.price ?? 49.99
+      document.getElementById('price-display').textContent = window.Utils.formatCurrency(price)
+      document.querySelectorAll('.price-in-button').forEach(el => { el.textContent = window.Utils.formatCurrency(price) })
+    }
+
+    function updateLicensePreview() {
+      const fullNameRaw = document.getElementById('fullName')?.value ?? ''
+      const prefix = document.getElementById('prefix')?.value || ''
+      const sex = document.getElementById('sex')?.value || ''
+      const dob = document.getElementById('dateOfBirth')?.value || ''
+      const licenseNum = selectedLicense?.number
+        ? String(selectedLicense.number)
+        : '—'
+
+      document.getElementById('preview-number-text').textContent = licenseNum
+
+      const prefixDisplay = prefix ? prefix.replace(/\.$/, '').toUpperCase() : ''
+      document.getElementById('preview-prefix-text').textContent = prefixDisplay || '—'
+      document.getElementById('preview-firstname-text').textContent = fullNameRaw
+        ? fullNameRaw.toUpperCase()
+        : '—'
+
+      document.getElementById('preview-type-text').textContent = selectedLicenseType
+      const sexLabels = { M: 'M', F: 'F', O: 'O' }
+      document.getElementById('preview-sex-text').textContent = sex ? (sexLabels[sex] || sex) : '—'
+      document.getElementById('preview-dob-text').textContent = dob ? formatDate(dob) : '—'
+      document.getElementById('preview-issue-date-text').textContent = issueDateFormatted
+
+      const photoOverlay = document.getElementById('preview-photo')
+      const photoImg = document.getElementById('preview-photo-img')
+      const photoPlaceholder = document.getElementById('preview-photo-placeholder')
+      if (photoDataUrl) {
+        photoImg.src = photoDataUrl
+        photoImg.style.display = 'block'
+        if (photoPlaceholder) photoPlaceholder.style.display = 'none'
+        photoOverlay.classList.remove('license-photo-overlay--empty')
+      } else {
+        photoImg.removeAttribute('src')
+        photoImg.style.display = 'none'
+        if (photoPlaceholder) photoPlaceholder.style.display = 'block'
+        photoOverlay.classList.add('license-photo-overlay--empty')
+      }
+    }
+
+    async function loadNextLicense() {
+      try {
+        const result = await window.API.fetchNextLicense()
+        selectedLicense = result.license
+        document.getElementById('license-display').textContent = selectedLicense.number
+        updatePriceDisplay()
+      } catch (err) {
+        console.error(err)
+        document.getElementById('error-message').textContent = err.message || 'Failed to load license'
+        document.getElementById('error-message').classList.remove('hidden')
+      } finally {
+        updateLicensePreview()
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', async () => {
+      await loadNextLicense()
+      initialOrderLicenseNumber = selectedLicense?.number ?? null
+
+      const backLink = document.getElementById('order-back-link')
+      const backConfirmModal = document.getElementById('order-back-confirm-modal')
+      const backConfirmCancel = document.getElementById('order-back-confirm-cancel')
+      const backConfirmLeave = document.getElementById('order-back-confirm-leave')
+
+      backLink?.addEventListener('click', (e) => {
+        if (!orderFormHasDraftData()) return
+        e.preventDefault()
+        backConfirmModal?.classList.remove('hidden')
+      })
+
+      backConfirmCancel?.addEventListener('click', () => {
+        backConfirmModal?.classList.add('hidden')
+      })
+
+      backConfirmLeave?.addEventListener('click', () => {
+        window.location.href = backLink?.getAttribute('href') || '/'
+      })
+
+      backConfirmModal?.addEventListener('click', (e) => {
+        if (e.target === backConfirmModal) backConfirmModal.classList.add('hidden')
+      })
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return
+        if (!backConfirmModal || backConfirmModal.classList.contains('hidden')) return
+        backConfirmModal.classList.add('hidden')
+      })
+
+      document.querySelectorAll('.license-type-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.license-type-btn').forEach(b => b.classList.remove('active'))
+          btn.classList.add('active')
+          selectedLicenseType = btn.dataset.type
+          updateLicenseClassDescription()
+          updateLicensePreview()
+        })
+      })
+      updateLicenseClassDescription()
+
+      const photoInput = document.getElementById('photo')
+      const photoPreview = document.getElementById('photo-preview')
+      const photoPreviewImg = document.getElementById('photo-preview-img')
+      const photoRemoveBtn = document.getElementById('photo-remove-btn')
+
+      photoInput?.addEventListener('change', (e) => {
+        const file = e.target.files[0]
+        if (file && file.type.startsWith('image/') && file.size <= 5 * 1024 * 1024) {
+          photoFile = file
+          const reader = new FileReader()
+          reader.onload = (ev) => {
+            photoDataUrl = ev.target.result
+            photoPreviewImg.src = photoDataUrl
+            photoPreview.classList.remove('hidden')
+            updateLicensePreview()
+          }
+          reader.readAsDataURL(file)
+        } else if (file) {
+          if (!file.type.startsWith('image/')) alert('Please select an image file')
+          else if (file.size > 5 * 1024 * 1024) alert('Image must be less than 5MB')
+          e.target.value = ''
+        }
+      })
+
+      photoRemoveBtn?.addEventListener('click', () => {
+        photoFile = null
+        photoDataUrl = null
+        photoInput.value = ''
+        photoPreview.classList.add('hidden')
+        updateLicensePreview()
+      })
+
+      const bindPreview = (id, events) => {
+        const el = document.getElementById(id)
+        if (!el) return
+        events.forEach((ev) => el.addEventListener(ev, updateLicensePreview))
+      }
+      bindPreview('fullName', ['input', 'change', 'keyup', 'paste'])
+      bindPreview('prefix', ['change', 'input'])
+      bindPreview('sex', ['change', 'input'])
+      bindPreview('dateOfBirth', ['change', 'input'])
+
+      // License selector modal (search, categories, grid - like license-select page)
+      const categoryNumbers = {
+        'all': null,
+        'cinema-film': ['000007', '000012', '000013', '000021', '000027', '000042', '000088', '000101', '000451', '000666', '001984', '002001', '002046'],
+        'music-audio': ['000012', '000033', '000045', '000078', '000432', '000440', '000808'],
+        'art-design': ['000072', '000300'],
+        'historical-dates': ['001066', '001492', '001776', '001914', '001945', '001969', '001989', '002001'],
+        'cultural-symbolic': ['000003', '000007', '000012', '000040', '000100', '000144', '000360', '001000'],
+        'technology-computing': ['000008', '000016', '000032', '000064', '001024', '002048'],
+        'sports-games': ['000009', '000018', '000024', '000090'],
+        'philosophy-literature': ['000023', '000073', '000108', '144000'],
+        'gaming-internet': ['000404', '000420', '001337', '080085'],
+        'mathematical-constants': ['000003', '000002', '000001', '000000', '000002'],
+        'physics-constants': ['299792', '000006', '000006', '000001', '000001'],
+        'astronomy-constants': ['149597', '000001', '000070'],
+        'chemistry-constants': ['602214', '000008', '096485'],
+        'reserved': ['000001', '000002', '000003', '000004', '000005', '000006', '000007', '000008', '000009', '000010', '000042', '000069', '000100', '000777', '001000', '002024']
+      }
+      const categoryNames = {
+        'cinema-film': 'Cinema', 'music-audio': 'Music', 'art-design': 'Art', 'historical-dates': 'History',
+        'cultural-symbolic': 'Culture', 'technology-computing': 'Tech', 'sports-games': 'Sports',
+        'philosophy-literature': 'Philosophy', 'gaming-internet': 'Gaming', 'mathematical-constants': 'Math',
+        'physics-constants': 'Physics', 'astronomy-constants': 'Astronomy', 'chemistry-constants': 'Chemistry',
+        'reserved': 'Reserved'
+      }
+      const numberToCategories = {}
+      Object.keys(categoryNumbers).forEach(cat => {
+        if (categoryNumbers[cat]) {
+          categoryNumbers[cat].forEach(num => {
+            if (!numberToCategories[num]) numberToCategories[num] = []
+            numberToCategories[num].push(cat)
+          })
+        }
+      })
+      function getLicenseNum(str) {
+        const s = String(str || '').trim()
+        const ddd = /^(\d{3})-(\d{3})$/.exec(s)
+        if (ddd) return ddd[1] + ddd[2]
+        let n = s.replace(/^M-?/i, '').replace(/-/g, '')
+        n = n.replace(/^0+/, '') || '0'
+        return n.padStart(6, '0')
+      }
+      let modalFilter = 'all'
+      let modalOffset = 0
+      const modalLimit = 100
+      let modalHasMore = true
+      let modalLicenses = []
+      let modalSearchQuery = ''
+      const licenseGridModal = document.getElementById('license-grid-modal')
+      const loadMoreModalBtn = document.getElementById('load-more-modal-btn')
+      const modalFilterBtns = document.querySelectorAll('#modal-filter-btns .filter-btn')
+      const modalSearchInput = document.getElementById('license-search-modal')
+
+      function renderModalLicense(license, showCategory) {
+        const card = document.createElement('div')
+        card.className = 'license-card'
+        card.dataset.licenseNumber = license.number
+        const isPremium = license.priceTier === 'premium'
+        const isAvailable = license.status === 'available'
+        let categoryLabel = ''
+        if (showCategory && modalFilter === 'all') {
+          const cats = numberToCategories[getLicenseNum(license.number)]
+          if (cats?.length) categoryLabel = `<div class="license-card-category">${categoryNames[cats[0]] || cats[0]}</div>`
+        }
+        card.innerHTML = `
+          <div class="license-card-number">${license.number}</div>
+          <div class="license-card-price">${window.Utils.formatCurrency(license.price)}</div>
+          ${categoryLabel}
+          ${isPremium ? '<div class="license-card-badge">Premium</div>' : ''}
+        `
+        if (isAvailable) {
+          card.classList.add('available')
+          card.addEventListener('click', () => {
+            selectedLicense = license
+            document.getElementById('license-display').textContent = selectedLicense.number
+            updatePriceDisplay()
+            updateLicensePreview()
+            document.getElementById('custom-number-modal').classList.add('hidden')
+          })
+        } else card.classList.add('unavailable')
+        return card
+      }
+
+      async function loadModalLicenses(reset) {
+        if (reset) {
+          modalOffset = 0
+          modalHasMore = true
+          licenseGridModal.innerHTML = '<div class="loading-state">Loading licenses...</div>'
+        }
+        if (!modalHasMore) return
+        try {
+          const result = await window.API.fetchLicenses({ status: 'available', limit: modalLimit, offset: modalOffset })
+          if (reset) licenseGridModal.innerHTML = ''
+          if (result.licenses?.length) {
+            if (reset) modalLicenses = []
+            modalLicenses.push(...result.licenses)
+            modalOffset += result.licenses.length
+            modalHasMore = result.licenses.length === modalLimit
+            applyModalFiltersAndSearch()
+            if (modalFilter !== 'all' && modalHasMore) {
+              const catNums = categoryNumbers[modalFilter]
+              if (catNums) {
+                const maxNum = Math.max(...catNums.map(n => parseInt(n)))
+                const found = modalLicenses.filter(l => l.status === 'available' && catNums.includes(getLicenseNum(l.number)))
+                if ((modalOffset < maxNum || found.length < catNums.length) && modalOffset < 10000) {
+                  setTimeout(() => loadModalLicenses(false), 100)
+                }
+              }
+            }
+          } else {
+            modalHasMore = false
+            loadMoreModalBtn.classList.add('hidden')
+            if (licenseGridModal.children.length === 0) licenseGridModal.innerHTML = '<div class="empty-state">No licenses found</div>'
+          }
+        } catch (err) {
+          console.error(err)
+          licenseGridModal.innerHTML = `<div class="error-state">Error: ${err.message}</div>`
+        }
+      }
+
+      function applyModalFiltersAndSearch() {
+        licenseGridModal.innerHTML = ''
+        const catNums = categoryNumbers[modalFilter]
+        const filtered = modalLicenses.filter(l => {
+          if (l.status !== 'available') return false
+          const matchesFilter = !catNums || catNums.includes(getLicenseNum(l.number))
+          let matchesSearch = true
+          if (modalSearchQuery.trim()) {
+            const q = modalSearchQuery.trim().toLowerCase()
+            const num = l.number.toLowerCase()
+            const qDigits = q.replace(/-/g, '')
+            matchesSearch = num.includes(q) || getLicenseNum(l.number).includes(qDigits)
+          }
+          return matchesFilter && matchesSearch
+        })
+        if (filtered.length === 0) {
+          licenseGridModal.innerHTML = '<div class="empty-state">No licenses found</div>'
+          loadMoreModalBtn.classList.add('hidden')
+        } else {
+          filtered.forEach(l => licenseGridModal.appendChild(renderModalLicense(l, true)))
+          loadMoreModalBtn.classList.toggle('hidden', !(modalHasMore && !modalSearchQuery.trim() && modalFilter === 'all'))
+        }
+      }
+
+      modalSearchInput?.addEventListener('input', (e) => {
+        modalSearchQuery = e.target.value
+        applyModalFiltersAndSearch()
+      })
+      modalFilterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          modalFilterBtns.forEach(b => b.classList.remove('active'))
+          btn.classList.add('active')
+          modalFilter = btn.dataset.filter
+          if (modalFilter !== 'all' && categoryNumbers[modalFilter]) {
+            const maxNum = Math.max(...categoryNumbers[modalFilter].map(n => parseInt(n)))
+            if (maxNum > modalLicenses.length || modalLicenses.length === 0) {
+              modalOffset = 0
+              modalHasMore = true
+              loadModalLicenses(true)
+              return
+            }
+          }
+          if (modalLicenses.length) applyModalFiltersAndSearch()
+          else loadModalLicenses(true)
+        })
+      })
+      loadMoreModalBtn?.addEventListener('click', () => loadModalLicenses(false))
+
+      document.getElementById('choose-custom-number-btn')?.addEventListener('click', () => {
+        document.getElementById('custom-number-modal').classList.remove('hidden')
+        modalSearchQuery = ''
+        modalSearchInput.value = ''
+        modalFilter = 'all'
+        modalFilterBtns.forEach(b => { b.classList.remove('active'); if (b.dataset.filter === 'all') b.classList.add('active') })
+        loadModalLicenses(true)
+      })
+
+      document.getElementById('custom-number-modal-close')?.addEventListener('click', () => {
+        document.getElementById('custom-number-modal').classList.add('hidden')
+      })
+
+      document.getElementById('custom-number-modal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'custom-number-modal') e.target.classList.add('hidden')
+      })
+
+      const form = document.getElementById('order-form')
+      const errorMessage = document.getElementById('error-message')
+      const submitBtn = document.getElementById('submit-btn')
+      const submitBtnDesktop = document.getElementById('submit-btn-desktop')
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault()
+        if (!selectedLicense) return
+
+        const fullName = document.getElementById('fullName').value.trim()
+        const prefix = document.getElementById('prefix').value
+        const email = document.getElementById('email').value.trim()
+        const sex = document.getElementById('sex').value
+        const dob = document.getElementById('dateOfBirth').value
+
+        if (!fullName || !email || !sex || !dob) {
+          errorMessage.textContent = 'Please fill in all required fields'
+          errorMessage.classList.remove('hidden')
+          return
+        }
+
+        window.Utils.showLoading(submitBtn, 'Processing...')
+        if (submitBtnDesktop) window.Utils.showLoading(submitBtnDesktop, 'Processing...')
+        errorMessage.classList.add('hidden')
+
+        try {
+          let photoUrl = null
+          if (photoFile) {
+            photoUrl = await new Promise((resolve, reject) => {
+              const reader = new FileReader()
+              reader.onload = () => resolve(reader.result)
+              reader.onerror = reject
+              reader.readAsDataURL(photoFile)
+            })
+          }
+
+          const orderResult = await window.API.createOrder({
+            licenseNumber: selectedLicense.number,
+            fullName,
+            prefix: prefix || undefined,
+            email,
+            licenseType: selectedLicenseType,
+            sex,
+            dateOfBirth: dob,
+            photo: photoUrl,
+            shippingAddress: { country: '', city: '', addressLine: '', zip: '' },
+          })
+
+          const price = selectedLicense.price ?? 49.99
+          const popup = document.getElementById('payment-popup-overlay')
+          document.getElementById('popup-license-number').textContent = selectedLicense.number
+          document.getElementById('popup-price').textContent = window.Utils.formatCurrency(price)
+          document.getElementById('popup-pay-amount').textContent = window.Utils.formatCurrency(price)
+          popup.classList.remove('hidden')
+          popup.dataset.orderId = orderResult.orderId
+          window.Utils.hideLoading(submitBtn)
+          if (submitBtnDesktop) window.Utils.hideLoading(submitBtnDesktop)
+        } catch (err) {
+          console.error(err)
+          errorMessage.textContent = err.message || 'Something went wrong'
+          errorMessage.classList.remove('hidden')
+          window.Utils.hideLoading(submitBtn)
+          if (submitBtnDesktop) window.Utils.hideLoading(submitBtnDesktop)
+        }
+      })
+
+      const paymentPopup = document.getElementById('payment-popup-overlay')
+      const paymentPayBtn = document.getElementById('payment-popup-pay')
+      const paymentCloseBtn = document.getElementById('payment-popup-close')
+
+      paymentCloseBtn?.addEventListener('click', () => paymentPopup.classList.add('hidden'))
+      paymentPopup?.addEventListener('click', (e) => {
+        if (e.target === paymentPopup) paymentPopup.classList.add('hidden')
+      })
+
+      paymentPayBtn?.addEventListener('click', async () => {
+        const orderId = paymentPopup?.dataset?.orderId
+        if (!orderId) return
+        const price = selectedLicense?.price ?? 49.99
+
+        paymentPayBtn.disabled = true
+        paymentPayBtn.innerHTML = 'Processing...'
+
+        try {
+          await window.API.processPayment(orderId)
+          window.location.href = '/dashboard.html'
+        } catch (err) {
+          console.error(err)
+          paymentPayBtn.disabled = false
+          paymentPayBtn.innerHTML = `Pay ${window.Utils.formatCurrency(price)}`
+          errorMessage.textContent = err.message || 'Payment failed'
+          errorMessage.classList.remove('hidden')
+        }
+      })
+
+      await window.Auth?.initAuth()
+
+      document.getElementById('login-btn')?.addEventListener('click', async () => {
+        const state = window.Auth?.getAuthState()
+        window.location.href = state?.authenticated ? '/dashboard.html' : '/login.html'
+      })
+    })
+  </script>
+</body>
+</html>
