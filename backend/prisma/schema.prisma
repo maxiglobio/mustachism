@@ -63,3 +63,12 @@ model LicenseNumber {
 
   @@map("license_numbers")
 }
+
+model WaitlistSignup {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+  metadata  Json?
+
+  @@map("waitlist_signups")
+}

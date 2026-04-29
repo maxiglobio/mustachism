@@ -22,6 +22,7 @@
   <meta name="twitter:description" content="Official mustache licenses. A quiet resistance against plastic masculinity.">
   <meta name="twitter:image" content="/assets/images/og-image.png">
   <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="/assets/css/waitlist.css">
 </head>
 <body>
   <!-- Header - Logo, Tab, Login -->
@@ -66,12 +67,35 @@
             </video>
           </div>
         </div>
-        <!-- CTA Button -->
-        <div id="original-cta" class="hero-cta">
-          <a href="/order.html" class="btn-primary btn-large">
-            Get Your Mustache License
-          </a>
-          <p class="hero-cta-subtitle">Starting from $49.99</p>
+        <!-- CTA: full checkout vs waitlist (toggled via /api/site-config when WAITLIST_ONLY=true) -->
+        <div id="hero-cta-root" class="hero-cta">
+          <div id="hero-cta-checkout" class="hero-cta__mode">
+            <a href="/order.html" class="btn-primary btn-large">
+              Get Your Mustache License
+            </a>
+            <p class="hero-cta-subtitle">Starting from $49.99</p>
+          </div>
+          <div id="hero-cta-waitlist" class="hero-cta__mode hero-cta__mode--waitlist hero-cta__mode--hidden">
+            <p class="hero-cta-subtitle hero-cta-subtitle--waitlist">
+              Early access — be first when issuance opens.
+            </p>
+            <form id="waitlist-form" class="hero-waitlist-form" novalidate>
+              <label class="hero-waitlist-sr-only" for="waitlist-email">Email</label>
+              <input
+                id="waitlist-email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                class="hero-waitlist-email"
+                placeholder="you@example.com"
+              >
+              <button type="submit" class="btn-primary btn-large" id="waitlist-submit">
+                Get early access
+              </button>
+            </form>
+            <p id="waitlist-message" class="hero-waitlist-message hero-cta__mode--hidden" role="status" aria-live="polite"></p>
+          </div>
         </div>
       </div>
     </section>
@@ -336,9 +360,74 @@
       })
     }
 
+    function getApiOriginForFetch() {
+      if (window.API_BASE_URL) {
+        return String(window.API_BASE_URL).replace(/\/api\/?$/, '')
+      }
+      const origin = window.location?.origin || ''
+      if (!origin || origin === 'null' || origin.startsWith('file:')) {
+        return 'http://localhost:3000'
+      }
+      const port = window.location?.port
+      if (origin.includes('localhost') && port && port !== '3000') {
+        return 'http://localhost:3000'
+      }
+      return origin
+    }
+
+    async function applyHomeHeroMode() {
+      const checkoutEl = document.getElementById('hero-cta-checkout')
+      const waitlistEl = document.getElementById('hero-cta-waitlist')
+      if (!checkoutEl || !waitlistEl) return
+
+      try {
+        const base = getApiOriginForFetch()
+        const res = await fetch(`${base}/api/site-config`, { credentials: 'include' })
+        if (!res.ok) return
+        const data = await res.json()
+        if (!data.waitlistOnly) return
+        checkoutEl.classList.add('hero-cta__mode--hidden')
+        waitlistEl.classList.remove('hero-cta__mode--hidden')
+      } catch (err) {
+        console.warn('site-config:', err)
+      }
+    }
+
+    function initWaitlistForm() {
+      const form = document.getElementById('waitlist-form')
+      const emailInput = document.getElementById('waitlist-email')
+      const messageEl = document.getElementById('waitlist-message')
+      const submitBtn = document.getElementById('waitlist-submit')
+      if (!form || !emailInput || !messageEl || !window.API?.submitWaitlist) return
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault()
+        messageEl.textContent = ''
+        messageEl.classList.add('hero-cta__mode--hidden')
+        const email = emailInput.value.trim()
+        if (!email) return
+
+        submitBtn.disabled = true
+        try {
+          const result = await window.API.submitWaitlist(email)
+          messageEl.textContent = result.message || "You're on the list."
+          messageEl.classList.remove('hero-cta__mode--hidden', 'hero-waitlist-message--error')
+          emailInput.value = ''
+        } catch (err) {
+          messageEl.textContent = err.message || 'Something went wrong. Try again.'
+          messageEl.classList.remove('hero-cta__mode--hidden')
+          messageEl.classList.add('hero-waitlist-message--error')
+        } finally {
+          submitBtn.disabled = false
+        }
+      })
+    }
+
     // Set current year
     window.addEventListener('DOMContentLoaded', async () => {
       initFaqAccordion()
+      initWaitlistForm()
+      await applyHomeHeroMode()
 
       const yearSpan = document.getElementById('current-year')
       if (yearSpan) yearSpan.textContent = new Date().getFullYear()

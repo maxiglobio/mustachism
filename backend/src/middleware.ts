@@ -1,9 +1,21 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+const CHECKOUT_ENTRY_PATHS = new Set([
+  '/order.html',
+  '/license-select.html',
+  '/personal-info.html',
+])
+
 export function middleware(request: NextRequest) {
+  const path = request.nextUrl.pathname
+
+  if (process.env.WAITLIST_ONLY === 'true' && CHECKOUT_ENTRY_PATHS.has(path)) {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
+
   // Handle CORS for API routes
-  if (request.nextUrl.pathname.startsWith('/api')) {
+  if (path.startsWith('/api')) {
     const origin = request.headers.get('origin')
     
     if (request.method === 'OPTIONS') {
@@ -28,5 +40,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/api/:path*',
+  matcher: ['/api/:path*', '/order.html', '/license-select.html', '/personal-info.html'],
 }

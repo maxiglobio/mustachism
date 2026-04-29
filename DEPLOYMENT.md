@@ -54,6 +54,7 @@ Add these in Vercel Project Settings → Environment Variables:
 | `DATABASE_DIRECT_URL` | For Supabase: use "Direct connection" string (bypasses pooler) | For Supabase |
 | `NEXT_PUBLIC_BASE_URL` | Your Vercel URL, e.g. `https://your-app.vercel.app` | For Stripe callbacks |
 | `STRIPE_SECRET_KEY` | Stripe secret key (or leave empty for demo mode) | Optional |
+| `WAITLIST_ONLY` | Set to `true` for public waitlist mode: homepage shows early-access email signup (see `/api/waitlist`), and `/order.html`, `/license-select.html`, `/personal-info.html` redirect to `/`. Omit or set `false` for the full checkout flow. | Optional |
 
 **Supabase connection strings:**
 - `DATABASE_URL`: Use the "Connection pooling" URI (port 6543)
@@ -70,3 +71,15 @@ Click Deploy. Vercel will:
 - Your app will be at `https://your-project.vercel.app`
 - The frontend (index.html, etc.) is served from the root
 - API routes are at `/api/*`
+
+### Waitlist table (`waitlist_signups`)
+
+After pulling changes that add the waitlist feature, apply the migration against your Supabase database (from `backend/`):
+
+```bash
+npx prisma migrate deploy
+```
+
+Or run the SQL in `backend/prisma/migrations/20260408120000_waitlist_signups/migration.sql` in the Supabase SQL editor. Emails are stored when visitors submit the homepage form while `WAITLIST_ONLY=true`.
+
+**Git snapshot of the full checkout flow (before waitlist):** annotated tag `v1-full-checkout` and branch `preserve/full-checkout-v1`; push with `git push origin main --tags` and `git push origin preserve/full-checkout-v1` when a remote is configured.

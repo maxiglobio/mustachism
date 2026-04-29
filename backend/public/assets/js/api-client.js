@@ -6,7 +6,7 @@
 function getApiBaseUrl() {
   if (window.API_BASE_URL) return window.API_BASE_URL
   const origin = window.location?.origin || ''
-  // When served from file:// or a static server (e.g. port 5500, 8080), the API isn't there
+  // When served from file:// or a static server (e.g. port 5500, 8080), the API is not there
   // Fall back to backend: localhost:3000 (dev) or production URL
   if (!origin || origin === 'null' || origin.startsWith('file:')) {
     return 'http://localhost:3000/api'
@@ -25,7 +25,7 @@ const API_BASE_URL = getApiBaseUrl()
  */
 async function fetchLicenses(filters = {}) {
   const { status = 'available', limit = 100, offset = 0 } = filters
-  
+
   const params = new URLSearchParams({
     filter: status,
     limit: limit.toString(),
@@ -177,6 +177,28 @@ async function fetchUserLicenses() {
 }
 
 /**
+ * Join waitlist (email stored in Supabase via Prisma)
+ */
+async function submitWaitlist(email) {
+  const response = await fetch(`${API_BASE_URL}/waitlist`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email }),
+  })
+
+  const data = await response.json().catch(() => ({}))
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Could not join the waitlist')
+  }
+
+  return data
+}
+
+/**
  * Check authentication status
  */
 async function checkAuth() {
@@ -246,6 +268,7 @@ window.API = {
   processPayment,
   createStripeCheckout,
   fetchUserLicenses,
+  submitWaitlist,
   checkAuth,
   login,
   logout,
