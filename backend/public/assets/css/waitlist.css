@@ -61,6 +61,11 @@
   margin: 0.25rem 0 0;
 }
 
+/* Success-only state: form panel hidden, message is the sole CTA content */
+#hero-cta-waitlist .hero-waitlist-message:not(.hero-cta__mode--hidden) {
+  margin-top: 0;
+}
+
 .hero-waitlist-message--error {
   color: #b42318;
 }

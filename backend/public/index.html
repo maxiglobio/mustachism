@@ -76,24 +76,26 @@
             <p class="hero-cta-subtitle">Starting from $49.99</p>
           </div>
           <div id="hero-cta-waitlist" class="hero-cta__mode hero-cta__mode--waitlist hero-cta__mode--hidden">
-            <p class="hero-cta-subtitle hero-cta-subtitle--waitlist">
-              Early access — be first when issuance opens.
-            </p>
-            <form id="waitlist-form" class="hero-waitlist-form" novalidate>
-              <label class="hero-waitlist-sr-only" for="waitlist-email">Email</label>
-              <input
-                id="waitlist-email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                required
-                class="hero-waitlist-email"
-                placeholder="you@example.com"
-              >
-              <button type="submit" class="btn-primary btn-large" id="waitlist-submit">
-                Get early access
-              </button>
-            </form>
+            <div id="waitlist-form-panel">
+              <p class="hero-cta-subtitle hero-cta-subtitle--waitlist">
+                Early access — be first when issuance opens.
+              </p>
+              <form id="waitlist-form" class="hero-waitlist-form" novalidate>
+                <label class="hero-waitlist-sr-only" for="waitlist-email">Email</label>
+                <input
+                  id="waitlist-email"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  required
+                  class="hero-waitlist-email"
+                  placeholder="you@example.com"
+                >
+                <button type="submit" class="btn-primary btn-large" id="waitlist-submit">
+                  Get early access
+                </button>
+              </form>
+            </div>
             <p id="waitlist-message" class="hero-waitlist-message hero-cta__mode--hidden" role="status" aria-live="polite"></p>
           </div>
         </div>
@@ -394,11 +396,12 @@
     }
 
     function initWaitlistForm() {
+      const panel = document.getElementById('waitlist-form-panel')
       const form = document.getElementById('waitlist-form')
       const emailInput = document.getElementById('waitlist-email')
       const messageEl = document.getElementById('waitlist-message')
       const submitBtn = document.getElementById('waitlist-submit')
-      if (!form || !emailInput || !messageEl || !window.API?.submitWaitlist) return
+      if (!panel || !form || !emailInput || !messageEl || !window.API?.submitWaitlist) return
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault()
@@ -410,10 +413,12 @@
         submitBtn.disabled = true
         try {
           const result = await window.API.submitWaitlist(email)
-          messageEl.textContent = result.message || "You're on the list."
+          panel.classList.add('hero-cta__mode--hidden')
+          messageEl.textContent = result.message || "You're on the list. We'll be in touch."
           messageEl.classList.remove('hero-cta__mode--hidden', 'hero-waitlist-message--error')
           emailInput.value = ''
         } catch (err) {
+          panel.classList.remove('hero-cta__mode--hidden')
           messageEl.textContent = err.message || 'Something went wrong. Try again.'
           messageEl.classList.remove('hero-cta__mode--hidden')
           messageEl.classList.add('hero-waitlist-message--error')
