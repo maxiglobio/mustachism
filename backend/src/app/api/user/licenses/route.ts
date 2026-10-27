@@ -44,6 +44,8 @@ export async function GET(request: NextRequest) {
             issueDate: true,
             pricePaid: true,
             fullName: true,
+            sex: true,
+            dateOfBirth: true,
           },
         },
       },

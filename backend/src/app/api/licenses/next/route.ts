@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
+import { releaseExpiredReservations } from '@/lib/orders'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -10,6 +11,7 @@ export const dynamic = 'force-dynamic'
  */
 export async function GET() {
   try {
+    await releaseExpiredReservations().catch((err) => console.error('[licenses/next] release failed', err))
     const license = await prisma.licenseNumber.findFirst({
       where: { status: 'available' },
       orderBy: { number: 'asc' },

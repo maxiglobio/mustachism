@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
 const CHECKOUT_ENTRY_PATHS = new Set([
+  '/order',
+  '/license-select',
+  '/personal-info',
   '/order.html',
   '/license-select.html',
   '/personal-info.html',
@@ -40,5 +43,13 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/api/:path*', '/order.html', '/license-select.html', '/personal-info.html'],
+  matcher: [
+    '/api/:path*',
+    '/order',
+    '/license-select',
+    '/personal-info',
+    '/order.html',
+    '/license-select.html',
+    '/personal-info.html',
+  ],
 }

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
+import { releaseExpiredReservations } from '@/lib/orders'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -22,6 +23,9 @@ export async function GET(request: NextRequest) {
     const filter = searchParams.get('filter') || 'all'
     const limit = parseInt(searchParams.get('limit') || '100')
     const offset = parseInt(searchParams.get('offset') || '0')
+
+    // Abandoned Shopify checkouts give their numbers back before we list what's available.
+    await releaseExpiredReservations().catch((err) => console.error('[licenses] release failed', err))
 
     let where: any = {}
     

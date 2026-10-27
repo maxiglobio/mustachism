@@ -2,6 +2,7 @@
 /**
  * Copies frontend static files to public/ for Vercel deployment
  */
+require('dotenv').config({ path: require('path').join(__dirname, '../.env') })
 const fs = require('fs')
 const path = require('path')
 
@@ -66,6 +67,22 @@ const assetsDest = path.join(publicDir, 'assets')
 if (fs.existsSync(assetsSrc)) {
   copyRecursive(assetsSrc, assetsDest)
   console.log('Copied assets/')
+}
+
+const clarityDest = path.join(publicDir, 'assets/js/clarity.js')
+if (fs.existsSync(clarityDest)) {
+  const clarityId = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || ''
+  const body = fs
+    .readFileSync(clarityDest, 'utf8')
+    .replace(/__CLARITY_PROJECT_ID__/g, clarityId)
+  fs.writeFileSync(clarityDest, body)
+  if (clarityId) {
+    console.log('Injected Microsoft Clarity project id into public/assets/js/clarity.js')
+  } else {
+    console.warn(
+      'NEXT_PUBLIC_CLARITY_PROJECT_ID is unset; clarity.js will not load the tracker (add it to backend/.env)',
+    )
+  }
 }
 
 console.log('Frontend copy complete')

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
-import { createSession } from '@/lib/auth'
+import { createLoginToken } from '@/lib/auth'
+import { getPublicSiteUrl, sendLoginLinkEmail } from '@/lib/email'
+
+export const runtime = 'nodejs'
 
 // Handle OPTIONS for CORS
 export async function OPTIONS() {
@@ -14,10 +17,22 @@ export async function OPTIONS() {
   })
 }
 
+/**
+ * Link base comes from config in production, never from the Host header,
+ * so a spoofed Host can't make us email a valid token to someone else's domain.
+ */
+function linkBase(request: NextRequest): string {
+  return process.env.NODE_ENV === 'production' ? getPublicSiteUrl() : request.nextUrl.origin
+}
+
+/**
+ * POST /api/auth/login - email a magic sign-in link.
+ * Always answers the same way so the endpoint doesn't reveal which emails hold a license.
+ */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { email } = body
+    const email = typeof body?.email === 'string' ? body.email.trim() : ''
 
     if (!email) {
       const response = NextResponse.json(
@@ -28,48 +43,28 @@ export async function POST(request: NextRequest) {
       return response
     }
 
-    // Find user by email
-    const user = await prisma.user.findUnique({
-      where: { email },
+    // Only users who hold a license can sign in
+    const user = await prisma.user.findFirst({
+      where: {
+        email: { equals: email, mode: 'insensitive' },
+        licenses: { some: {} },
+      },
+      select: { id: true, email: true },
     })
 
-    if (!user) {
-      const response = NextResponse.json(
-        { error: 'No account found with this email', success: false },
-        { status: 404 }
-      )
-      response.headers.set('Access-Control-Allow-Origin', '*')
-      return response
+    if (user) {
+      const token = createLoginToken(user.id, user.email)
+      const link = `${linkBase(request)}/api/auth/verify?token=${encodeURIComponent(token)}`
+      await sendLoginLinkEmail(user.email, link)
     }
 
-    // Check if user has a license
-    const license = await prisma.license.findFirst({
-      where: { userId: user.id },
-    })
-
-    if (!license) {
-      const response = NextResponse.json(
-        { error: 'No license found for this account', success: false },
-        { status: 404 }
-      )
-      response.headers.set('Access-Control-Allow-Origin', '*')
-      return response
-    }
-
-    // Create session
-    await createSession(user.id, user.email)
-
-    const response = NextResponse.json({
-      success: true,
-      userId: user.id,
-      email: user.email,
-    })
+    const response = NextResponse.json({ success: true })
     response.headers.set('Access-Control-Allow-Origin', '*')
     return response
   } catch (error) {
-    console.error('Error logging in:', error)
+    console.error('Error sending login link:', error)
     const response = NextResponse.json(
-      { error: 'Failed to login' },
+      { error: 'Failed to send sign-in link' },
       { status: 500 }
     )
     response.headers.set('Access-Control-Allow-Origin', '*')
