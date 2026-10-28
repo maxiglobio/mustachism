@@ -5,6 +5,12 @@ import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { configureScrollTrigger, gsap, isNarrowViewport, prefersReducedMotion } from '@/lib/motion'
 
+const LINES = [
+  ['We certify', 'what survived.'],
+  ['We document', 'what wasn’t erased.'],
+  ['We give permission', 'to be seen.'],
+]
+
 /** Block 10 — why Mustachism exists: blur-in statement over a parallax photograph. */
 export function Statement() {
   const rootRef = useRef<HTMLElement>(null)
@@ -48,7 +54,7 @@ export function Statement() {
   return (
     <section ref={rootRef} className="statement" aria-labelledby="statement-title">
       <div className="statement__media" aria-hidden="true">
-        <Image className="statement__bg" src="/assets/images/hero-usp-private.jpg" alt="" fill sizes="100vw" />
+        <Image className="statement__bg" src="/assets/images/story-manifest.jpg" alt="" fill sizes="100vw" />
         <div className="statement__veil" />
       </div>
       <div className="container statement__inner">
@@ -56,19 +62,21 @@ export function Statement() {
           <h2 id="statement-title" className="statement__ask">
             So why does a mustache need a license?
           </h2>
-          <p>Technically, it doesn&rsquo;t. That&rsquo;s not the point.</p>
-          <p>
-            A mustache can become style, character, ritual, rebellion — or simply part of who someone is. Mustachism
-            exists to make that official.
-          </p>
+          <p>Technically, it doesn&rsquo;t. Mustachism exists to make it official.</p>
+          <Link href="/story" className="btn btn--lg statement__cta">
+            Explore Mustachism
+          </Link>
         </div>
-        <p className="statement__main">
-          We certify <em>what survived.</em> We document <em>what wasn&rsquo;t erased.</em> We give permission{' '}
-          <em>to be seen.</em>
-        </p>
-        <Link href="/story" className="btn btn--lg statement__cta">
-          Explore Mustachism
-        </Link>
+        <ol className="statement__main">
+          {LINES.map(([verb, rest], i) => (
+            <li key={verb}>
+              <span className="statement__n mono">0{i + 1}</span>
+              <span>
+                {verb} <em>{rest}</em>
+              </span>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   )

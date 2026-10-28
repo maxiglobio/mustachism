@@ -82,7 +82,7 @@ export function Chronicle() {
             preload="metadata"
             playsInline
             controls={playing}
-            poster="/assets/images/story-manifest.jpg"
+            poster="/assets/images/chronicle-poster.jpg"
             onPause={() => setPlaying(false)}
             onPlay={() => setPlaying(true)}
             onEnded={() => setPlaying(false)}

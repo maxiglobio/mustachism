@@ -1386,28 +1386,30 @@ html:not(.motion) .features__stage::before {
 
 .statement__inner {
   display: grid;
-  gap: 22px;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(36px, 6vw, 96px);
+  align-items: end;
 }
 
 .statement__lead {
   display: grid;
-  gap: 12px;
-  max-width: 52ch;
+  gap: 20px;
+  justify-items: start;
+  max-width: 34ch;
   font-size: var(--fs-lead);
   color: var(--on-dark-muted);
 }
 
 .statement__ask {
-  margin-bottom: 8px;
   font-family: var(--ff-display);
   text-transform: uppercase;
-  font-size: clamp(1.8rem, 1.3rem + 2vw, 3rem);
-  line-height: 0.95;
+  font-size: clamp(2.2rem, 1.4rem + 3vw, 4.2rem);
+  line-height: 0.92;
   color: var(--on-dark);
 }
 
 .statement__cta {
-  justify-self: start;
+  margin-top: 8px;
   --btn-fg: var(--on-dark);
   --btn-bd: var(--on-dark-line);
 }
@@ -1418,17 +1420,37 @@ html:not(.motion) .features__stage::before {
 }
 
 .statement__main {
-  max-width: 24ch;
+  border-top: 1px solid var(--on-dark-line);
+}
+
+.statement__main li {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  align-items: baseline;
+  padding: clamp(14px, 1.6vw, 22px) 0;
+  border-bottom: 1px solid var(--on-dark-line);
   font-family: var(--ff-display);
   text-transform: uppercase;
-  font-weight: 400;
-  font-size: clamp(2.2rem, 1.2rem + 3.4vw, 4.6rem);
-  line-height: 0.92;
-  letter-spacing: 0;
+  font-size: clamp(1.7rem, 1.1rem + 2vw, 3.2rem);
+  line-height: 0.95;
 }
 
 .statement__main em {
   color: var(--steel);
+}
+
+.statement__n {
+  color: var(--on-dark-muted);
+}
+
+@media (max-width: 859px) {
+  .statement__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .statement__main li {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
 }
 
 /* ───────────────────────────── manifesto (justified words settle) */
