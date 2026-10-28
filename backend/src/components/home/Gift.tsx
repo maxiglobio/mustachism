@@ -14,6 +14,7 @@ export function Gift({ waitlist }: { waitlist: boolean }) {
             width={1414}
             height={1182}
             sizes="(max-width: 767px) 92vw, 50vw"
+            className="gift__img"
           />
         </div>
         <div className="gift__copy reveal">

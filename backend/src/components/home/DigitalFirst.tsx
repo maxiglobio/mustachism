@@ -24,8 +24,13 @@ export function DigitalFirst() {
                 <span>Mustachism</span>
                 <span className="phone__status">Valid</span>
               </p>
-              <LicenseImage className="phone__card" number="000-069" sizes="200px" />
+              <p className="phone__title">Digital license</p>
+              <LicenseImage className="phone__card" number="000-069" sizes="240px" />
               <dl className="phone__meta mono">
+                <div>
+                  <dt>License</dt>
+                  <dd>#000-069</dd>
+                </div>
                 <div>
                   <dt>Status</dt>
                   <dd>Issued</dd>

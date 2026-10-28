@@ -32,8 +32,8 @@ export function Compare({ waitlist }: { waitlist: boolean }) {
   return (
     <section className="section section--tight compare" aria-labelledby="compare-title">
       <div className="container compare__inner">
-        <h2 id="compare-title" className="compare__title mono reveal">
-          Standard vs Premium
+        <h2 id="compare-title" className="section-title compare__title reveal">
+          Standard <em>vs</em> Premium
         </h2>
         <div className="compare__scroll reveal">
           <table className="compare__table">
@@ -41,12 +41,12 @@ export function Compare({ waitlist }: { waitlist: boolean }) {
               <tr>
                 <td />
                 <th scope="col">Standard</th>
-                <th scope="col">Premium</th>
+                <th scope="col" className="compare__premium">Premium</th>
               </tr>
             </thead>
             <tbody>
               {ROWS.map(([label, s, p]) => (
-                <tr key={label}>
+                <tr key={label} data-price={label === 'Price' || undefined}>
                   <th scope="row">{label}</th>
                   <td>
                     <Cell v={s} strong={label === 'Price'} />

@@ -1681,7 +1681,7 @@ html:not(.motion) .features__stage::before {
 }
 
 .digital__steel {
-  transform: rotate(-4deg);
+  transform: rotate(-5deg) translateY(14%);
 }
 
 .phone {
@@ -1698,8 +1698,8 @@ html:not(.motion) .features__stage::before {
 }
 
 .phone__screen {
-  display: grid;
-  align-content: start;
+  display: flex;
+  flex-direction: column;
   gap: 14px;
   height: 100%;
   padding: 28px 12px 12px;
@@ -1723,15 +1723,23 @@ html:not(.motion) .features__stage::before {
   color: var(--ink);
 }
 
-.phone__card {
-  transform: rotate(90deg) scale(1.62);
-  transform-origin: center;
-  margin-block: 54% 50%;
+.phone__title {
+  margin-top: 6px;
+  font-family: var(--ff-display);
+  text-transform: uppercase;
+  font-size: clamp(1.1rem, 0.8rem + 0.8vw, 1.6rem);
+  line-height: 0.95;
+}
+
+.phone__card img {
+  border-radius: 6% / 9%;
+  box-shadow: 0 10px 24px -12px rgba(0, 0, 0, 0.8);
 }
 
 .phone__meta {
   display: grid;
   gap: 8px;
+  margin-top: auto;
   font-size: 0.56rem;
 }
 
@@ -1777,13 +1785,8 @@ html:not(.motion) .features__stage::before {
 .tier__media img {
   width: 100%;
   aspect-ratio: 4 / 3;
-  object-fit: cover;
-}
-
-.tier:not(.tier--premium) .tier__media img {
-  /* Slim packaging is shown smaller, true to size against the premium box. */
   object-fit: contain;
-  padding: 6% 12%;
+  padding: 12% 6% 2%;
 }
 
 .tier__badges {
@@ -1895,7 +1898,7 @@ html:not(.motion) .features__stage::before {
 }
 
 .compare__title {
-  color: var(--muted);
+  text-align: center;
 }
 
 .compare__scroll {
@@ -1906,7 +1909,7 @@ html:not(.motion) .features__stage::before {
 .compare__table {
   width: 100%;
   border-collapse: collapse;
-  font-size: var(--fs-small);
+  font-size: 1rem;
 }
 
 .compare__table th,
@@ -1932,7 +1935,35 @@ html:not(.motion) .features__stage::before {
 }
 
 .compare__table td:last-child {
-  background: rgba(14, 14, 15, 0.035);
+  background: rgba(14, 14, 15, 0.05);
+  font-weight: 500;
+}
+
+.compare__table thead .compare__premium {
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-bottom-color: var(--ink);
+  background: var(--ink);
+  color: var(--on-dark);
+}
+
+.compare__table tr[data-price] th,
+.compare__table tr[data-price] td {
+  padding-block: 22px;
+  border-bottom: 0;
+  font-family: var(--ff-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+}
+
+.compare__table tr[data-price] strong {
+  font-weight: 400;
+}
+
+.compare__table tr[data-price] td:last-child {
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  background: var(--ink);
+  color: var(--on-dark);
 }
 
 .compare__table strong {
@@ -2083,9 +2114,18 @@ html:not(.motion) .features__stage::before {
   align-items: center;
 }
 
+.gift__media {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
 .gift__media img {
   width: 100%;
-  border-radius: var(--radius-lg);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 50% 72%;
+  transform: scale(1.5);
+  transform-origin: 50% 72%;
 }
 
 .gift__copy {
@@ -2114,6 +2154,22 @@ html:not(.motion) .features__stage::before {
 }
 
 /* block 12 — final CTA */
+.final-cta {
+  background: #000;
+  color: var(--on-dark);
+}
+
+.final-cta .section-title em,
+.final-cta .lead {
+  color: var(--on-dark-muted);
+}
+
+.final-cta .btn--primary {
+  --btn-bg: var(--on-dark);
+  --btn-fg: var(--ink);
+  --btn-bd: var(--on-dark);
+}
+
 .final-cta__inner {
   display: grid;
   justify-items: center;
@@ -2128,16 +2184,18 @@ html:not(.motion) .features__stage::before {
   width: min(100%, 880px);
 }
 
+.final-cta__media {
+  align-items: end;
+}
+
 .final-cta__media img {
   width: 100%;
-  border-radius: var(--radius-lg);
-  background: #050505;
 }
 
 .final-cta__media img:first-child {
-  object-fit: contain;
-  padding: 8% 10%;
-  aspect-ratio: 1414 / 1182;
+  /* Slim packaging shown smaller beside the premium box. */
+  width: 72%;
+  justify-self: end;
 }
 
 .final-cta__copy {
@@ -2148,9 +2206,11 @@ html:not(.motion) .features__stage::before {
 
 .final-cta__copy .section-title {
   max-width: 16ch;
+  font-size: var(--fs-h1);
 }
 
 .final-cta__prices {
+  color: var(--on-dark-muted);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -2260,7 +2320,7 @@ html:not(.motion) .features__stage::before {
   }
 
   .digital__visual {
-    padding: 22% 34% 18% 0;
+    padding: 14% 34% 8% 0;
   }
 
   .digital__badge {
@@ -2269,6 +2329,7 @@ html:not(.motion) .features__stage::before {
   }
 
   .phone {
+    aspect-ratio: 9 / 15;
     width: 40%;
     border-radius: 26px;
     padding: 6px;
@@ -2284,9 +2345,17 @@ html:not(.motion) .features__stage::before {
     display: none;
   }
 
+  .compare__table {
+    font-size: 0.8125rem;
+  }
+
   .compare__table th,
   .compare__table td {
     padding: 12px 6px;
+  }
+
+  .compare__table tbody th {
+    padding-left: 0;
   }
 
   .how__step {
