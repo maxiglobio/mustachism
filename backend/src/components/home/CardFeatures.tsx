@@ -10,22 +10,34 @@ import type { JourneyState, Pose } from './journey'
  */
 const FEATURES: Array<{ title: string; copy: string; pose: Pose }> = [
   {
-    title: 'Solid Steel. No Plastic.',
-    copy: 'Engraved. Permanent. Real.',
-    // Nearly edge-on: the light runs along the steel edge and the comb teeth.
-    pose: { yaw: -1.15, pitch: 0.2, roll: 0.06, fx: -0.1, fy: -0.1, zoom: 0.95 },
+    title: 'Your Portrait',
+    copy: 'Made from your photo.',
+    // Close on the engraved photo frame, left of the front.
+    pose: { yaw: 0.22, pitch: -0.06, roll: 0, fx: -0.29, fy: 0.02, zoom: 1.2 },
   },
   {
-    title: 'Your Number. Your Mark.',
-    copy: 'Choose it. Or take what’s left.',
+    title: 'Your Details',
+    copy: 'Your name, date of birth and license information.',
+    // The name / sex / date block beside the portrait.
+    pose: { yaw: -0.16, pitch: -0.08, roll: 0, fx: 0.08, fy: 0.05, zoom: 1.15 },
+  },
+  {
+    title: 'Your License Number',
+    copy: 'Every license carries its own unique number.',
     // Close on the licence number in the header line.
     pose: { yaw: 0.12, pitch: -0.1, roll: 0, fx: 0.15, fy: 0.23, zoom: 1.25 },
   },
   {
-    title: 'Not For Everyone.',
-    copy: 'Private access. Limited issuance.',
+    title: 'Engraved Steel',
+    copy: 'Physical. Permanent. Made to last.',
     // Turned over: the mark on the reverse.
     pose: { yaw: Math.PI - 0.18, pitch: 0.1, roll: -0.03, fx: 0, fy: 0.03, zoom: 0.82 },
+  },
+  {
+    title: 'Built-in Mustache Comb',
+    copy: 'A functional comb edge integrated directly into the steel card.',
+    // Low and tilted onto the bottom edge: the light runs along the comb teeth.
+    pose: { yaw: -0.45, pitch: 0.4, roll: 0.04, fx: -0.15, fy: -0.27, zoom: 1.2 },
   },
 ]
 
@@ -96,9 +108,14 @@ export function CardFeatures({ rootRef, state }: Props) {
   return (
     <section ref={rootRef as React.RefObject<HTMLElement>} className="features" aria-labelledby="features-title">
       <div className="features__stage">
-        <h2 id="features-title" className="features__title section-title">
-          One card. Cut from steel, <em>numbered for life.</em>
-        </h2>
+        <header className="features__title">
+          <h2 id="features-title" className="section-title">
+            Made for one mustache. <em>Yours.</em>
+          </h2>
+          <p className="features__sub">
+            Every Mustache License is individually created for its owner — personalized, engraved and built to be used.
+          </p>
+        </header>
         <ul className="features__list">
           {FEATURES.map((f, i) => (
             <li key={f.title} className="features__item">

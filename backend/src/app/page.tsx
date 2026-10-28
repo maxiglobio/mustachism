@@ -2,10 +2,18 @@ import type { Metadata } from 'next'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteHeader } from '@/components/layout/SiteHeader'
 import { BoxSequences } from '@/components/home/BoxSequences'
+import { ChooseLicense } from '@/components/home/ChooseLicense'
+import { Compare } from '@/components/home/Compare'
+import { DigitalFirst } from '@/components/home/DigitalFirst'
 import { Faq } from '@/components/home/Faq'
+import { FinalCta } from '@/components/home/FinalCta'
+import { Gift } from '@/components/home/Gift'
 import { HomeJourney } from '@/components/home/HomeJourney'
-import { Manifesto } from '@/components/home/Manifesto'
+import { HowItWorks } from '@/components/home/HowItWorks'
+import { ProductNote } from '@/components/home/ProductNote'
 import { Statement } from '@/components/home/Statement'
+import { StickyCta } from '@/components/home/StickyCta'
+import { YourNumber } from '@/components/home/YourNumber'
 import { FAQS } from '@/lib/content'
 import { isWaitlistOnly } from '@/lib/site-mode'
 import { SITE } from '@/lib/site'
@@ -34,9 +42,9 @@ export default function HomePage() {
         offers: {
           '@type': 'AggregateOffer',
           priceCurrency: 'USD',
-          lowPrice: '49.99',
-          highPrice: '199.99',
-          offerCount: 3,
+          lowPrice: '69',
+          highPrice: '169',
+          offerCount: 2,
         },
       },
       {
@@ -55,11 +63,19 @@ export default function HomePage() {
       <SiteHeader />
       <main id="main" className="page page--home">
         <HomeJourney waitlist={waitlist} />
+        <ProductNote waitlist={waitlist} />
+        <DigitalFirst />
+        <ChooseLicense waitlist={waitlist} />
+        <Compare waitlist={waitlist} />
+        <HowItWorks waitlist={waitlist} />
         <BoxSequences />
+        <YourNumber waitlist={waitlist} />
+        <Gift waitlist={waitlist} />
         <Statement />
-        <Manifesto />
         <Faq />
+        <FinalCta waitlist={waitlist} />
       </main>
+      {waitlist ? null : <StickyCta />}
       <SiteFooter />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </>

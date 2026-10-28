@@ -121,6 +121,11 @@ export function SiteHeader({ account = 'auto' }: Props) {
           </nav>
 
           <div className="site-header__actions">
+            {pathname.startsWith('/order') ? null : (
+              <Link href="/#license" className="btn btn--primary btn--sm">
+                Get your license
+              </Link>
+            )}
             {account === 'logout' ? (
               <button type="button" className="btn btn--ghost btn--sm" onClick={onLogout}>
                 Logout

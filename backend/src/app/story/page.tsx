@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { SiteFooter } from '@/components/layout/SiteFooter'
 import { SiteHeader } from '@/components/layout/SiteHeader'
+import { Manifesto } from '@/components/home/Manifesto'
 import { Chronicle } from '@/components/story/Chronicle'
 import { Codex } from '@/components/story/Codex'
 import { StoryHero } from '@/components/story/StoryHero'
@@ -22,6 +23,7 @@ export default function StoryPage() {
       <SiteHeader />
       <main id="main" className="page page--story">
         <StoryHero />
+        <Manifesto />
         <Codex />
         <Chronicle />
       </main>

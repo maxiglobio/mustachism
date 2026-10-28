@@ -1,10 +1,11 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 import { configureScrollTrigger, gsap, isNarrowViewport, prefersReducedMotion } from '@/lib/motion'
 
-/** Blur-in statement over a parallax photograph. */
+/** Block 10 — why Mustachism exists: blur-in statement over a parallax photograph. */
 export function Statement() {
   const rootRef = useRef<HTMLElement>(null)
 
@@ -51,10 +52,23 @@ export function Statement() {
         <div className="statement__veil" />
       </div>
       <div className="container statement__inner">
-        <p className="statement__lead">This is not grooming. This is not irony. This is not a joke product.</p>
-        <h2 id="statement-title" className="statement__main">
-          We certify <em>what survived.</em>
-        </h2>
+        <div className="statement__lead">
+          <h2 id="statement-title" className="statement__ask">
+            So why does a mustache need a license?
+          </h2>
+          <p>Technically, it doesn&rsquo;t. That&rsquo;s not the point.</p>
+          <p>
+            A mustache can become style, character, ritual, rebellion — or simply part of who someone is. Mustachism
+            exists to make that official.
+          </p>
+        </div>
+        <p className="statement__main">
+          We certify <em>what survived.</em> We document <em>what wasn&rsquo;t erased.</em> We give permission{' '}
+          <em>to be seen.</em>
+        </p>
+        <Link href="/story" className="btn btn--lg statement__cta">
+          Explore Mustachism
+        </Link>
       </div>
     </section>
   )

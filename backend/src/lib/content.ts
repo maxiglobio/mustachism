@@ -1,10 +1,30 @@
 export const FAQS = [
-  { q: 'Why do mustaches need a license?', a: 'Because everything real gets erased first. We certify what survived.' },
-  { q: 'Is this a joke?', a: 'No. Jokes are louder.' },
-  { q: 'Do I need to prove anything to get a license?', a: 'No. If you’re here, you already know.' },
-  { q: 'What does the license give me?', a: 'Permission. Recognition. A physical mark that says: you’re allowed to be visible.' },
-  { q: 'Is the license permanent?', a: 'Nothing is permanent. But this lasts longer than trends.' },
-  { q: 'Can I buy this as a gift?', a: 'Yes. Some men need permission more than others.' },
+  {
+    q: 'What is a Mustache License?',
+    a: 'A personalized physical steel credential made specifically for its owner, featuring a portrait, personal details and individual license number. It also includes a functional mustache-comb edge integrated directly into the card.',
+  },
+  {
+    q: 'What’s the difference between Standard and Premium?',
+    a: 'Both versions include the same personalized engraved steel license and digital version. Standard costs $69 and comes with an individually assigned license number and slim presentation packaging. Premium costs $169 and lets you choose your own available license number. It also comes in a premium presentation box with an official Mustachism letter.',
+  },
+  {
+    q: 'How is my license personalized?',
+    a: 'After choosing your license, you’ll upload your photo and provide the personal information required for your credential.',
+  },
+  { q: 'Is the license actually metal?', a: 'Yes. Each physical Mustache License is made from engraved steel.' },
+  { q: 'Is the comb functional?', a: 'Yes. The edge of the license is designed to function as a mustache comb.' },
+  {
+    q: 'Do I receive a digital version?',
+    a: 'Yes. A personalized digital version is included with every license and is sent before your physical license arrives.',
+  },
+  {
+    q: 'Can I buy one as a gift?',
+    a: 'Absolutely. Enter the recipient’s photo and information when personalizing the license.',
+  },
+  {
+    q: 'Can I choose my license number?',
+    a: 'With Premium, yes. You can select from available license numbers. Standard licenses receive an individually assigned number.',
+  },
 ]
 
 export const CODEX = [

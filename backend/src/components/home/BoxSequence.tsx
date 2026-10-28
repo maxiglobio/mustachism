@@ -13,6 +13,8 @@ type Props = {
   tier: string
   title: string
   copy: string
+  /** Extra line under the copy. */
+  note?: string
   alt: string
   dark?: boolean
   onDarkChange?: (on: boolean) => void
@@ -24,7 +26,7 @@ const frameUrl = (root: string, n: number) => `${root}/box-${n}.webp`
  * Scroll-scrubbed presentation-box sequence. Frames are drawn to a canvas (no layout churn
  * from swapping <img src>), preloaded once the section is near the viewport.
  */
-export function BoxSequence({ id, root, start, count, price, tier, title, copy, alt, dark, onDarkChange }: Props) {
+export function BoxSequence({ id, root, start, count, price, tier, title, copy, note, alt, dark, onDarkChange }: Props) {
   const sectionRef = useRef<HTMLElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
@@ -144,10 +146,12 @@ export function BoxSequence({ id, root, start, count, price, tier, title, copy, 
       <div className="box-seq__stage">
         <div className="container box-seq__grid">
           <div className="box-seq__copy" data-box-copy>
-            <h2 id={`${id}-title`} className="box-seq__title">
+            <p className="box-seq__tier mono">{tier}</p>
+            <h3 id={`${id}-title`} className="box-seq__title">
               {title}
-            </h2>
+            </h3>
             <p className="box-seq__text">{copy}</p>
+            {note ? <p className="box-seq__note">{note}</p> : null}
           </div>
           <div className="box-seq__visual">
             <canvas ref={canvasRef} className="box-seq__canvas" role="img" aria-label={alt} />

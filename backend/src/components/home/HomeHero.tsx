@@ -6,9 +6,8 @@ import type { LicenseCardHandle } from '@/components/card3d/LicenseCard3D'
 import { CARD_ASSETS } from '@/components/card3d/assets'
 import { AmbientShapes } from '@/components/motion/AmbientShapes'
 import { MUSTACHE_FRAMES } from '@/lib/content'
-import { formatCurrency } from '@/lib/licenses'
 import { configureScrollTrigger, gsap, prefersReducedMotion } from '@/lib/motion'
-import { SITE } from '@/lib/site'
+import { licenseHref, TIERS } from '@/lib/offer'
 import { CARD_ASPECT, slotZoom, type JourneyState } from './journey'
 import { Preloader } from './Preloader'
 import { WaitlistForm } from './WaitlistForm'
@@ -204,24 +203,30 @@ export function HomeHero({ waitlist, rootRef, slotRef, cardRef, state, whenReady
       <div className="container hero__grid">
         <div className="hero__copy">
           <h1 id="hero-title" className="hero-title">
-            <span className="hero-title-line">A license</span>
-            <span className="hero-title-line">for what</span>
+            <span className="hero-title-line">Your mustache.</span>
             <span className="hero-title-line">
-              <em>remains.</em>
+              <em>Officially licensed.</em>
             </span>
           </h1>
-          <p className="hero-subtitle">
-            Solid steel. Engraved. Permanent. Real. A quiet resistance against plastic masculinity.
-          </p>
-          <div className="hero-actions">
+          <div className="hero-subtitle">
+            <p>
+              A personalized engraved steel license featuring your portrait, personal details and individual license
+              number.
+            </p>
+            <p>And yes — it doubles as a mustache comb.</p>
+          </div>
+          <div className="hero-actions" id={waitlist ? 'waitlist' : undefined}>
             {waitlist ? (
               <WaitlistForm />
             ) : (
-              <div className="hero-cta">
-                <Link href="/order" className="btn btn--primary btn--lg">
-                  Get your mustache license
+              <div className="hero-cta" data-hero-cta>
+                <p className="hero-cta__price">
+                  From <strong>{TIERS.standard.price}</strong>
+                </p>
+                <Link href={licenseHref(false)} className="btn btn--primary btn--lg">
+                  Get your license
                 </Link>
-                <p className="hero-actions__note mono">Starting from {formatCurrency(SITE.startingPrice)}</p>
+                <p className="hero-actions__note mono">Personalized · Engraved steel · Digital + physical license</p>
               </div>
             )}
           </div>

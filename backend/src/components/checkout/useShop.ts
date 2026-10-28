@@ -16,7 +16,10 @@ export function useShop() {
       .then((r) => {
         setConfigured(r.configured)
         setPackages(r.packages)
-        if (r.packages.length && !r.packages.some((p) => p.id === 'basic')) setSelectedId(r.packages[0].id)
+        // The homepage links to /order?package=basic|pro.
+        const wanted = new URLSearchParams(window.location.search).get('package')
+        if (r.packages.some((p) => p.id === wanted)) setSelectedId(wanted as PackageId)
+        else if (r.packages.length && !r.packages.some((p) => p.id === 'basic')) setSelectedId(r.packages[0].id)
       })
       .catch(() => {
         setConfigured(true)
