@@ -15,7 +15,7 @@ export const Preloader = forwardRef<HTMLDivElement>(function Preloader(_, ref) {
         <img className="preloader__mustache" src={MUSTACHE_FRAMES[0]} alt="" width={1140} height={768} />
       </div>
       <p className="preloader__count mono">
-        Licence #<span data-count>000-000</span>
+        Licence #<span data-count>000 000</span>
       </p>
     </div>
   )

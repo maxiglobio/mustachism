@@ -27,12 +27,12 @@ export const LICENSE_CLASSES = [
 
 export const PREFIXES = ['Mr.', 'Ms.', 'Mrs.', 'Miss', 'Mx.', 'Dr.', 'Prof.', 'Rev.', 'Hon.'] as const
 
-/** "000-020" | "M-0020" | "20" → "000020" */
+/** "000 020" | "000-020" | "M-0020" | "20" → "000020" */
 export function sixDigits(value: string) {
   const s = String(value || '').trim()
-  const ddd = /^(\d{3})-(\d{3})$/.exec(s)
-  if (ddd) return ddd[1] + ddd[2]
-  const n = s.replace(/^M-?/i, '').replace(/-/g, '').replace(/^0+/, '') || '0'
+  const grouped = /^(\d{3})[-\s](\d{3})$/.exec(s)
+  if (grouped) return grouped[1] + grouped[2]
+  const n = s.replace(/^M-?/i, '').replace(/[-\s]/g, '').replace(/^0+/, '') || '0'
   return n.padStart(6, '0')
 }
 
@@ -42,14 +42,14 @@ for (const c of LICENSE_CATEGORIES) {
   for (const n of c.numbers) if (!numberToCategory.has(n)) numberToCategory.set(n, c.label)
 }
 
-/** "000020" | "20" | "000-020" → "000-020" (null if not a number) */
+/** "000020" | "20" | "000-020" | "000 020" → "000 020" (null if not a number) */
 export function toLicenseNumber(value: string) {
   const s = String(value || '').trim()
-  if (/^\d{3}-\d{3}$/.test(s)) return s
+  if (/^\d{3} \d{3}$/.test(s)) return s
   const digits = s.replace(/^M-?/i, '').replace(/[-\s]/g, '')
   if (!/^\d{1,6}$/.test(digits)) return null
   const six = digits.padStart(6, '0')
-  return `${six.slice(0, 3)}-${six.slice(3)}`
+  return `${six.slice(0, 3)} ${six.slice(3)}`
 }
 
 export function categoryLabelFor(licenseNumber: string) {
@@ -63,7 +63,7 @@ export function categoryNumbers(id: CategoryId): readonly string[] | null {
 export function matchesSearch(licenseNumber: string, query: string) {
   const q = query.trim().toLowerCase()
   if (!q) return true
-  const qDigits = q.replace(/-/g, '')
+  const qDigits = q.replace(/[-\s]/g, '')
   return (
     licenseNumber.toLowerCase().includes(q) ||
     sixDigits(licenseNumber).includes(qDigits) ||

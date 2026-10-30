@@ -67,7 +67,7 @@ export function LicensePicker({ onSelect, selected, autoFocus }: Props) {
     }
   }, [category])
 
-  // Exact-number lookup so "20" finds 000-020 even if it isn't loaded yet.
+  // Exact-number lookup so "20" finds 000 020 even if it isn't loaded yet.
   useEffect(() => {
     const n = toLicenseNumber(query)
     setExact(null)
@@ -111,7 +111,7 @@ export function LicensePicker({ onSelect, selected, autoFocus }: Props) {
         <input
           id="license-search"
           className="input picker__input"
-          placeholder="Enter a number (e.g. 000-020 or 20)"
+          placeholder="Enter a number (e.g. 000 020 or 20)"
           autoComplete="off"
           inputMode="numeric"
           value={query}

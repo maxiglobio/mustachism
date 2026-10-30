@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
+import { toLicenseNumber } from '@/lib/licenses'
 import { photoUrl, releaseExpiredReservations, reserveNumber, RESERVATION_MINUTES } from '@/lib/orders'
 import { createCheckout, getPackages, isShopifyConfigured, type PackageId } from '@/lib/shopify'
 import { isWaitlistOnly } from '@/lib/site-mode'
@@ -32,7 +33,8 @@ export async function POST(request: NextRequest) {
   if (!isShopifyConfigured()) return bad('Checkout is not configured.', 503)
 
   const body = (await request.json().catch(() => ({}))) as Body
-  const { licenseNumber, fullName, email, sex, dateOfBirth } = body
+  const licenseNumber = body.licenseNumber ? toLicenseNumber(body.licenseNumber) || body.licenseNumber.trim() : undefined
+  const { fullName, email, sex, dateOfBirth } = body
   const pkgId: PackageId = body.package === 'pro' ? 'pro' : 'basic'
   if (!licenseNumber || !fullName?.trim() || !email?.trim() || !sex || !dateOfBirth) {
     return bad('Please fill in all required fields.')

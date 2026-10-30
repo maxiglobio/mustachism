@@ -1,5 +1,5 @@
 /**
- * One-time migration: 000 001 / M-0001 → 000-001 (NNN-NNN, the format the app expects).
+ * One-time migration: 000-001 / M-0001 → 000 001 (NNN NNN, the format the app expects).
  * Run from backend/ in a terminal (not the Supabase SQL editor): npm run db:migrate-license-format
  * Requires DATABASE_DIRECT_URL or DATABASE_URL.
  */
@@ -22,29 +22,29 @@ const pool = new Pool({
 const adapter = new PrismaPg(pool)
 const prisma = new PrismaClient({ adapter })
 
-function toHyphenFormat(old: string): string | null {
+function toSpaceFormat(old: string): string | null {
   const trimmed = old.trim()
-  if (/^\d{3}-\d{3}$/.test(trimmed)) return null
-  const spaced = /^(\d{3}) (\d{3})$/.exec(trimmed)
-  if (spaced) return `${spaced[1]}-${spaced[2]}`
+  if (/^\d{3} \d{3}$/.test(trimmed)) return null
+  const hyphen = /^(\d{3})-(\d{3})$/.exec(trimmed)
+  if (hyphen) return `${hyphen[1]} ${hyphen[2]}`
   const m = trimmed.match(/^M-(\d{1,6})$/i)
   if (!m) return null
   const i = parseInt(m[1], 10)
   if (i < 1 || i > 999999) return null
   const six = String(i).padStart(6, '0')
-  return `${six.slice(0, 3)}-${six.slice(3, 6)}`
+  return `${six.slice(0, 3)} ${six.slice(3, 6)}`
 }
 
 async function main() {
-  const spacedCount = await prisma.licenseNumber.count({
-    where: { number: { contains: ' ' } },
+  const hyphenCount = await prisma.licenseNumber.count({
+    where: { number: { contains: '-' } },
   })
-  console.log(`license_numbers rows containing a space: ${spacedCount}`)
+  console.log(`license_numbers rows containing "-": ${hyphenCount}`)
 
   const numbers = await prisma.licenseNumber.findMany({ select: { number: true } })
   const map = new Map<string, string>()
   for (const { number } of numbers) {
-    const next = toHyphenFormat(number)
+    const next = toSpaceFormat(number)
     if (next) map.set(number, next)
   }
 
@@ -73,7 +73,7 @@ async function main() {
 
       const licenses = await tx.license.findMany({ select: { id: true, licenseNumber: true } })
       for (const lic of licenses) {
-        const next = toHyphenFormat(lic.licenseNumber)
+        const next = toSpaceFormat(lic.licenseNumber)
         if (!next) continue
         await tx.license.update({
           where: { id: lic.id },
@@ -87,7 +87,7 @@ async function main() {
         if (!sa || typeof sa !== 'object') continue
         const raw = sa.licenseNumber
         if (typeof raw !== 'string') continue
-        const next = toHyphenFormat(raw)
+        const next = toSpaceFormat(raw)
         if (!next) continue
         await tx.order.update({
           where: { id: o.id },

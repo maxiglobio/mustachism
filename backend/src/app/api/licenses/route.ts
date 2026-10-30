@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
+import { toLicenseNumber } from '@/lib/licenses'
 import { releaseExpiredReservations } from '@/lib/orders'
 
 export const runtime = 'nodejs'
@@ -99,8 +100,9 @@ export async function POST(request: NextRequest) {
       return response
     }
 
+    const number = toLicenseNumber(String(licenseNumber)) || String(licenseNumber).trim()
     const license = await prisma.licenseNumber.findUnique({
-      where: { number: licenseNumber },
+      where: { number },
     })
 
     if (!license) {

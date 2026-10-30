@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
+import { toLicenseNumber } from '@/lib/licenses'
 // Handle OPTIONS for CORS
 export async function OPTIONS() {
   return new NextResponse(null, {
@@ -32,6 +33,8 @@ export async function POST(request: NextRequest) {
     }
     
     licenseNumber = parsed.licenseNumber
+      ? toLicenseNumber(parsed.licenseNumber) || parsed.licenseNumber.trim()
+      : undefined
     const { fullName, prefix, email, shippingAddress, licenseType, sex, dateOfBirth, photo } = parsed
 
     // Validate required fields

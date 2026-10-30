@@ -56,7 +56,7 @@
           type="text" 
           id="license-search" 
           class="search-input" 
-          placeholder="Enter your license number (e.g. 000-020 or 20)"
+          placeholder="Enter your license number (e.g. 000 020 or 20)"
           autocomplete="off"
         >
       </div>
@@ -276,12 +276,12 @@
       }
     }
 
-    // Normalize to 6 digits for category matching (000-020 -> 000020, M-0020 -> 000020)
+    // Normalize to 6 digits for category matching (000 020 / 000-020 -> 000020)
     function getLicenseNumber(licenseNumber) {
       const s = String(licenseNumber).trim()
-      const ddd = /^(\d{3})-(\d{3})$/.exec(s)
-      if (ddd) return ddd[1] + ddd[2]
-      let num = s.replace(/^M-?/i, '').replace(/-/g, '')
+      const grouped = /^(\d{3})[-\s](\d{3})$/.exec(s)
+      if (grouped) return grouped[1] + grouped[2]
+      let num = s.replace(/^M-?/i, '').replace(/[-\s]/g, '')
       const actualNum = num.replace(/^0+/, '') || '0'
       return actualNum.padStart(6, '0')
     }
@@ -333,10 +333,10 @@
         if (searchQuery.trim()) {
           const query = searchQuery.trim().toLowerCase()
           const licenseNum = license.number.toLowerCase()
-          // Match 000-020, 000020, 20, or legacy M-0020
-          const q = query.replace(/-/g, '')
+          // Match 000 020, 000-020, 000020, 20, or legacy M-0020
+          const q = query.replace(/[-\s]/g, '')
           matchesSearch = licenseNum.includes(query) ||
-                         licenseNum.replace(/^m-?/i, '').replace(/-/g, '').includes(q.replace(/^0+/, '')) ||
+                         licenseNum.replace(/^m-?/i, '').replace(/[-\s]/g, '').includes(q.replace(/^0+/, '')) ||
                          getLicenseNumber(license.number).includes(q)
         }
 

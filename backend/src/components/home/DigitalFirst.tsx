@@ -17,7 +17,7 @@ export function DigitalFirst() {
           <p className="digital__badge mono">Digital license included with every order</p>
         </div>
         <div className="digital__visual reveal" aria-hidden="true">
-          <LicenseImage className="digital__steel" number="000-069" />
+          <LicenseImage className="digital__steel" number="000 069" />
           <div className="phone">
             <div className="phone__screen">
               <p className="phone__head mono">
@@ -25,11 +25,11 @@ export function DigitalFirst() {
                 <span className="phone__status">Valid</span>
               </p>
               <p className="phone__title">Digital license</p>
-              <LicenseImage className="phone__card" number="000-069" sizes="240px" />
+              <LicenseImage className="phone__card" number="000 069" sizes="240px" />
               <dl className="phone__meta mono">
                 <div>
                   <dt>License</dt>
-                  <dd>#000-069</dd>
+                  <dd>#000 069</dd>
                 </div>
                 <div>
                   <dt>Status</dt>

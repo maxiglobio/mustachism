@@ -1,11 +1,11 @@
 # Deploy MUSTACHISM (2.0 stack)
 
-## License numbers in Supabase (`NNN-NNN`)
+## License numbers in Supabase (`NNN NNN`)
 
-Pool uses **`000-001`** … **`009-999`** (three digits, hyphen, three digits), not `M-0001`.
+Pool uses **`000 001`** … **`009 999`** (three digits, space, three digits), not `000-001` or `M-0001`.
 
 - **New database:** after migrations, run `npm run db:seed` from `backend/` (see `prisma/seed.ts`).
-- **Existing `M-*` data:** one-time migration (requires `DATABASE_URL` or `DATABASE_DIRECT_URL` in `.env`):
+- **Existing hyphen / `M-*` data:** one-time migration (requires `DATABASE_URL` or `DATABASE_DIRECT_URL` in `.env`):
 
 ```bash
 cd MUSTACHISM/backend

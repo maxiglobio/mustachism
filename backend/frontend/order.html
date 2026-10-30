@@ -192,7 +192,7 @@
         <button type="button" class="custom-number-modal-close" id="custom-number-modal-close" aria-label="Close">&times;</button>
       </div>
       <div class="custom-number-modal-search">
-        <input type="text" id="license-search-modal" class="search-input" placeholder="Enter your license number (e.g. 000-020 or 20)" autocomplete="off">
+        <input type="text" id="license-search-modal" class="search-input" placeholder="Enter your license number (e.g. 000 020 or 20)" autocomplete="off">
       </div>
       <div class="filters-wrapper custom-number-filters">
         <div class="filters" id="modal-filter-btns">
@@ -329,12 +329,12 @@
     function normalizeLicenseNumber(input) {
       if (!input || !input.trim()) return null
       const s = input.trim()
-      if (/^\d{3}-\d{3}$/.test(s)) return s
-      const digits = s.replace(/^M-?/i, '').replace(/-/g, '').replace(/\s/g, '')
+      if (/^\d{3} \d{3}$/.test(s)) return s
+      const digits = s.replace(/^M-?/i, '').replace(/[-\s]/g, '')
       if (!/^\d+$/.test(digits)) return null
       const actualNum = digits.replace(/^0+/, '') || '0'
       const padded = actualNum.padStart(6, '0')
-      return padded.slice(0, 3) + '-' + padded.slice(3, 6)
+      return padded.slice(0, 3) + ' ' + padded.slice(3, 6)
     }
 
     function updatePriceDisplay() {

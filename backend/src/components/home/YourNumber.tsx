@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { licenseHref } from '@/lib/offer'
 import { LicenseImage } from './LicenseImage'
 
-const NUMBERS = ['000-069', '000-777', '001-001']
+const NUMBERS = ['000 069', '000 777', '001 001']
 
 /** Block 8 — the main reason to go Premium: you pick the number. */
 export function YourNumber({ waitlist }: { waitlist: boolean }) {
@@ -26,7 +26,7 @@ export function YourNumber({ waitlist }: { waitlist: boolean }) {
           {NUMBERS.map((n) => (
             <li key={n} className="your-number__card">
               <LicenseImage number={n} sizes="(max-width: 767px) 80vw, 36vw" />
-              <span className="sr-only">#{n.replace('-', '')}</span>
+              <span className="sr-only">#{n.replace(/[-\s]/g, '')}</span>
             </li>
           ))}
         </ul>

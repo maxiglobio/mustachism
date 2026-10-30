@@ -49,8 +49,7 @@ function isIconicNumber(num: string): boolean {
  * Determine if a license number is premium
  */
 export function isPremiumNumber(licenseNumber: string): boolean {
-  // Extract number part (M-0001 -> 0001)
-  const numPart = licenseNumber.replace('M-', '')
+  const numPart = licenseNumber.replace(/^M-?/i, '').replace(/[-\s]/g, '')
   
   return (
     hasRepeatingDigits(numPart) ||

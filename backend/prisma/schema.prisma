@@ -56,7 +56,7 @@ model Order {
 }
 
 model LicenseNumber {
-  number    String  @id // 000-001, 000-002, … (NNN-NNN)
+  number    String  @id // 000 001, 000 002, … (NNN NNN)
   status    String  @default("available") // available, reserved, taken
   priceTier String  @default("standard") // standard, premium
   price     Float

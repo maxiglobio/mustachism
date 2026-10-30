@@ -118,7 +118,7 @@ export function HomeHero({ waitlist, rootRef, slotRef, cardRef, state, whenReady
 
       // Counter: eases toward 90 while loading, completes when the card is ready.
       const count = { v: 0 }
-      const render = () => (counter.textContent = `000-${String(Math.round(count.v)).padStart(3, '0')}`)
+      const render = () => (counter.textContent = `000 ${String(Math.round(count.v)).padStart(3, '0')}`)
       const loading = gsap.to(count, { v: 90, duration: MIN_PRELOAD + 1.5, ease: 'power2.out', onUpdate: render })
 
       const minWait = new Promise<void>((r) => window.setTimeout(r, MIN_PRELOAD * 1000))

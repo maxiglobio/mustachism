@@ -14,26 +14,26 @@ function formatCurrency(amount) {
 }
 
 /**
- * Canonical display: NNN-NNN (e.g. 000-001). Accepts legacy M-0001 or 6 digits.
+ * Canonical display: NNN NNN (e.g. 000 001). Accepts hyphen, M-0001, or 6 digits.
  */
 function formatLicenseNumber(number) {
   const s = String(number).trim()
-  if (/^\d{3}-\d{3}$/.test(s)) return s
-  const legacy = s.replace(/^M-?/i, '').replace(/-/g, '')
+  if (/^\d{3} \d{3}$/.test(s)) return s
+  const legacy = s.replace(/^M-?/i, '').replace(/[-\s]/g, '')
   if (!/^\d+$/.test(legacy)) return s
   const six = legacy.replace(/^0+/, '') || '0'
   const padded = six.padStart(6, '0')
-  return `${padded.slice(0, 3)}-${padded.slice(3, 6)}`
+  return `${padded.slice(0, 3)} ${padded.slice(3, 6)}`
 }
 
 /**
- * Six-digit string for sorting/filtering (000-001 -> 000001)
+ * Six-digit string for sorting/filtering (000 001 -> 000001)
  */
 function extractLicenseNumber(licenseNumber) {
   const s = String(licenseNumber).trim()
-  const ddd = /^(\d{3})-(\d{3})$/.exec(s)
-  if (ddd) return ddd[1] + ddd[2]
-  return s.replace(/^M-?/i, '').replace(/-/g, '').padStart(6, '0')
+  const grouped = /^(\d{3})[-\s](\d{3})$/.exec(s)
+  if (grouped) return grouped[1] + grouped[2]
+  return s.replace(/^M-?/i, '').replace(/[-\s]/g, '').padStart(6, '0')
 }
 
 /**

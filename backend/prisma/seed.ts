@@ -30,11 +30,11 @@ function isIconicNumber(num: string): boolean {
   return ICONIC_NUMBERS.has(cleaned)
 }
 
-/** Digits only for premium rules: 000-001 → 000001, M-0001 → 0001 (legacy) */
+/** Digits only for premium rules: 000 001 → 000001, 000-001 / M-0001 legacy */
 function numericPartForPremium(licenseNumber: string): string {
-  const ddd = /^(\d{3})-(\d{3})$/.exec(licenseNumber.trim())
-  if (ddd) return ddd[1] + ddd[2]
-  return licenseNumber.replace(/^M-?/i, '')
+  const grouped = /^(\d{3})[-\s](\d{3})$/.exec(licenseNumber.trim())
+  if (grouped) return grouped[1] + grouped[2]
+  return licenseNumber.replace(/^M-?/i, '').replace(/[-\s]/g, '')
 }
 
 function isPremiumNumber(licenseNumber: string): boolean {
@@ -66,12 +66,12 @@ async function main() {
   await prisma.licenseNumber.deleteMany({})
   console.log('Cleared existing license numbers')
 
-  // Generate 9,999 license numbers: 000-001 … 009-999 (six digits as NNN-NNN)
+  // Generate 9,999 license numbers: 000 001 … 009 999 (six digits as NNN NNN)
   const licenseNumbers = []
   
   for (let i = 1; i <= 9999; i++) {
     const six = String(i).padStart(6, '0')
-    const number = `${six.slice(0, 3)}-${six.slice(3, 6)}`
+    const number = `${six.slice(0, 3)} ${six.slice(3, 6)}`
     const price = calculatePrice(number)
     const priceTier = getPriceTier(number)
     
