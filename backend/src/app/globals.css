@@ -721,6 +721,55 @@ html.modal-open {
   }
 }
 
+/* Phones: price and CTA must land on the first screen. Smaller card, then title →
+   price + button → description. */
+@media (max-width: 767px) {
+  .hero {
+    padding-top: calc(var(--header-h) + 4px);
+  }
+
+  .hero .card-slot {
+    aspect-ratio: auto;
+    height: min(30svh, 62vw);
+  }
+
+  .hero-visual {
+    margin-bottom: 4px;
+  }
+
+  .hero .card3d__hint {
+    margin-top: 0;
+  }
+
+  .hero .hero-title {
+    font-size: clamp(2.3rem, 11vw, 3.4rem);
+  }
+
+  .hero__copy {
+    gap: 16px;
+  }
+
+  .hero-subtitle {
+    order: 3;
+    font-size: 1rem;
+  }
+
+  .hero-cta {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    width: 100%;
+    gap: 10px 16px;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+  }
+
+  .hero-actions__note {
+    grid-column: 1 / -1;
+  }
+}
+
 /* intro preloader (homepage, once per session) */
 .preloader {
   position: fixed;
